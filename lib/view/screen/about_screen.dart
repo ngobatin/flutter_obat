@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyShared extends StatefulWidget {
-  const MyShared({Key? key});
+  const MyShared({Key? key}) : super(key: key);
 
   @override
   State<MyShared> createState() => _MySharedState();
@@ -38,7 +38,7 @@ class _MySharedState extends State<MyShared> {
               child: Column(
                 children: [
                   const Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8.0),
                     child: Text(
                       'About Application',
                       style: TextStyle(
@@ -48,7 +48,7 @@ class _MySharedState extends State<MyShared> {
                     ),
                   ),
                   const Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8.0),
                     child: Text(
                       'Aplikasi ini menyimpan informasi tentang obat-obatan psikofarmasi. '
                       'Psikofarmasi adalah obat yang mempengaruhi fungsi mental dan emosional otak. '
@@ -59,7 +59,7 @@ class _MySharedState extends State<MyShared> {
                     ),
                   ),
                   const Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8.0),
                     child: Text(
                       'Purpose of Application:',
                       style: TextStyle(
@@ -69,7 +69,7 @@ class _MySharedState extends State<MyShared> {
                     ),
                   ),
                   const Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8.0),
                     child: Text(
                       'Aplikasi ini bertujuan untuk memudahkan para pengguna mengetahui obat apa saja yang dibutuhkan untuk kesehatan mental '
                       'dan mengetahui jenis penyakit kesehatan mental.',
@@ -79,7 +79,7 @@ class _MySharedState extends State<MyShared> {
                     ),
                   ),
                   const Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8.0),
                     child: Text(
                       'App Creators:',
                       style: TextStyle(
@@ -89,7 +89,7 @@ class _MySharedState extends State<MyShared> {
                     ),
                   ),
                   const Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8.0),
                     child: Text(
                       'Juwita Stefany Hutapea '
                       '\nDirga Febrian',
