@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_obat/view/screen/login_screen.dart';
+import 'package:flutter_obat/view/screen/index_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,10 +13,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Obat',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-// useMaterial3: false,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange.shade900),
+        useMaterial3: true,
+        // primarySwatch: Colors.orange,
+        // useMaterial3: false,
       ),
-      home: const LoginScreen(),
+      home: const IndexScreen(),
     );
   }
 }
