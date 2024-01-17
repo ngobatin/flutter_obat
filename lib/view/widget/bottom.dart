@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_obat/view/screen/category_screen.dart';
-import 'package:flutter_obat/view/screen/home_screen.dart';
+// import 'package:flutter_obat/view/screen/home_screen.dart';
 import 'package:flutter_obat/view/screen/about_screen.dart';
 
 class DynamicBottomNavBar extends StatefulWidget {
