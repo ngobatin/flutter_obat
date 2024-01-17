@@ -36,8 +36,8 @@ class _DynamicBottomNavBarState extends State<DynamicBottomNavBar> {
               icon: Icon(Icons.last_page_rounded), label: 'About'),
         ],
         backgroundColor: Colors.white,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.blue,
+        selectedItemColor: Colors.orange.shade900,
+        unselectedItemColor: Colors.black,
       ),
     );
   }

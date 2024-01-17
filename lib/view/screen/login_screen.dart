@@ -68,7 +68,13 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Login'),
+          title: const Text(
+            'Psikofarmaka',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              // color: Colors.white,
+            ),
+          ),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -79,12 +85,23 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   const Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'Halo, Selamat Datang!',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Halo, Selamat Datang',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'Silahkan Login!',
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -115,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       validator: _validatePassword,
                       decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.password_rounded),
-                        hintText: 'Write your password here...',
+                        hintText: 'Write password here...',
                         labelText: 'Password',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(

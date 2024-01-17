@@ -12,12 +12,31 @@ class _RsScreenState extends State<RsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Rumah Sakit"),
-        centerTitle: true,
+        title: const Text(
+          "Psikofarmaka",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            // color: Colors.white,
+          ),
+        ),
+        // centerTitle: true,
         backgroundColor: Colors.orange.shade900,
       ),
-      body: const Center(
-        child: Text("Rumah Sakit Screen"),
+      body: const Column(
+        children: <Widget>[
+          SizedBox(
+            height: 20,
+          ),
+          Center(
+            child: Text(
+              "Rumah Sakit",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

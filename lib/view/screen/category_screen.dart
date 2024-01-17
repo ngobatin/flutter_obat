@@ -44,8 +44,14 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Psikofarmaka"),
-          centerTitle: true,
+          title: const Text(
+            "Psikofarmaka",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              // color: Colors.white,
+            ),
+          ),
+          // centerTitle: true,
           backgroundColor: Colors.orange.shade900,
         ),
         body: Padding(
@@ -60,22 +66,18 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   icon: categories[index]["icon"],
                   text: categories[index]["text"],
                   press: () {
-                    _handleCategoryTap(context, categories[index]["screen"]);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => categories[index]["screen"],
+                      ),
+                    );
                   },
                 ),
               ),
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  void _handleCategoryTap(BuildContext context, Widget screen) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => screen,
       ),
     );
   }
