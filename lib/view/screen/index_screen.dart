@@ -14,7 +14,7 @@ class _IndexScreenState extends State<IndexScreen> {
   int currentPage = 0;
   List<Map<String, String>> indexData = [
     {
-      "text": "Welcome to SmartMeds, Let’s find out!",
+      "text": "Welcome to Psikofarmaka, Let’s find out!",
       "image": "assets/images/splash_obat1.png"
     },
     {
@@ -88,7 +88,8 @@ class _IndexScreenState extends State<IndexScreen> {
                               context,
                               MaterialPageRoute(
                                 // builder: (context) => const LoginScreen(),
-                                builder: (context) => const DynamicBottomNavBar(),
+                                builder: (context) =>
+                                    const DynamicBottomNavBar(),
                               ),
                             );
                           },

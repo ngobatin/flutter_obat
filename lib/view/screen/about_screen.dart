@@ -26,7 +26,7 @@ class _MySharedState extends State<MyShared> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Psikofarmaka'),
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.orange.shade900,
       ),
       body: Container(
         margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
@@ -75,124 +75,6 @@ class _MySharedState extends State<MyShared> {
                       'dan mengetahui jenis penyakit kesehatan mental.',
                       style: TextStyle(
                         fontSize: 16.0,
-                      ),
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'App Creators:',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'Juwita Stefany Hutapea '
-                      '\nDirga Febrian',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      controller: textController,
-                      decoration: const InputDecoration(
-                        labelText: 'Enter additional information',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          loginData = await SharedPreferences.getInstance();
-                          String text = textController.text;
-                          loginData.setString('additionalInfo', text);
-                          textController.clear();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                        ),
-                        child: const Text(
-                          'Submit',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      controller: textController2,
-                      decoration: const InputDecoration(
-                        labelText: 'Stored Information',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          loginData = await SharedPreferences.getInstance();
-                          String text =
-                              loginData.getString('additionalInfo') ?? '';
-                          setState(() {
-                            textController2.text = text;
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                        ),
-                        child: const Text(
-                          'Get Additional Info',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          textController2.clear();
-                          loginData.remove('additionalInfo');
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                        ),
-                        child: const Text(
-                          'Delete Additional Info',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
                       ),
                     ),
                   ),
