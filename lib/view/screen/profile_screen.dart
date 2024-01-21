@@ -16,19 +16,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
           "Psikofarmaka",
           style: TextStyle(
             fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
-        backgroundColor: Colors.orange.shade900,
+        iconTheme: const IconThemeData(color: Colors.white),
+        // centerTitle: true,
+        backgroundColor: Colors.blue.shade600,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(
-              height: 20,
-            ),
-            Center(
+            const SizedBox(height: 20),
+            const Center(
               child: Text(
                 "Profile",
                 style: TextStyle(
@@ -37,9 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             _buildCreatorProfile(
                 "Creator 1",
                 "Dirga Febrian",
@@ -47,9 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 "@febriand_1",
                 "Live life to the fullest",
                 "assets/images/dirga.png"),
-            SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             _buildCreatorProfile(
                 "Creator 2",
                 "Juwita Stefany",
@@ -74,7 +71,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         title: Text(
           title,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

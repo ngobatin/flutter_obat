@@ -1,4 +1,4 @@
-import 'package:flutter_obat/service/api_services.dart';
+import 'package:flutter_obat/service/api_login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_obat/service/auth_manager.dart';
 import 'package:flutter_obat/view/widget/bottom.dart';
@@ -17,7 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  final ApiServices _dataService = ApiServices();
+  final ApiLogin _dataService = ApiLogin();
 
   @override
   void initState() {
@@ -69,12 +69,12 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
-            'Psikofarmaka',
+            "Psikofarmaka",
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              // color: Colors.white,
             ),
           ),
+          centerTitle: true,
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -104,22 +104,24 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 40),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                       validator: _validateUsername,
                       controller: _usernameController,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.account_circle_rounded),
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.account_circle_rounded),
                         hintText: 'Write username here...',
                         labelText: 'Username',
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        fillColor: Color.fromARGB(255, 242, 254, 255),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                        fillColor: const Color.fromARGB(255, 242, 254, 255),
                         filled: true,
                       ),
                     ),
@@ -130,23 +132,25 @@ class _LoginScreenState extends State<LoginScreen> {
                       obscureText: true,
                       controller: _passwordController,
                       validator: _validatePassword,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.password_rounded),
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.password_rounded),
                         hintText: 'Write password here...',
                         labelText: 'Password',
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        fillColor: Color.fromARGB(255, 242, 254, 255),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                        fillColor: const Color.fromARGB(255, 242, 254, 255),
                         filled: true,
                       ),
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  SizedBox(
+                    width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () async {
                         final isValidForm = _formKey.currentState!.validate();
@@ -173,7 +177,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                         }
                       },
-                      child: const Text('Login'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      child: const Text(
+                        "Login",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
                 ],

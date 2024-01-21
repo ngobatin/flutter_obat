@@ -17,14 +17,15 @@ class _IndexContentState extends State<IndexContent> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        const Spacer(),
-        const Text(
-          "Psikofarmaka",
-          style: TextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        // const Spacer(),
+        // const Text(
+        //   "Psikofarmaka",
+        //   style: TextStyle(
+        //     fontSize: 32,
+        //     fontWeight: FontWeight.bold,
+        //   ),
+        // ),
+        const SizedBox(height: 10),
         Text(
           widget.text!,
           textAlign: TextAlign.center,

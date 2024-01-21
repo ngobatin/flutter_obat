@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_obat/view/screen/category_screen.dart';
-import 'package:flutter_obat/view/screen/about_screen.dart';
+import 'package:flutter_obat/view/screen/obat/obat_screen.dart';
+import 'package:flutter_obat/view/screen/obat/list_obat.dart';
 
-class DynamicBottomNavBar extends StatefulWidget {
-  const DynamicBottomNavBar({super.key});
+class DynamicBottomNavBarObat extends StatefulWidget {
+  const DynamicBottomNavBarObat({super.key});
 
   @override
-  State<DynamicBottomNavBar> createState() => _DynamicBottomNavBarState();
+  State<DynamicBottomNavBarObat> createState() =>
+      _DynamicBottomNavBarObatState();
 }
 
-class _DynamicBottomNavBarState extends State<DynamicBottomNavBar> {
+class _DynamicBottomNavBarObatState extends State<DynamicBottomNavBarObat> {
   int _currentPageIndex = 0;
 
   final List<Widget> _pages = <Widget>[
-    const CategoriesScreen(),
-    const MyShared(),
+    const ObatScreen(),
+    const ListObat(),
   ];
   void onTabTapped(int index) {
     setState(() {
@@ -31,12 +32,12 @@ class _DynamicBottomNavBarState extends State<DynamicBottomNavBar> {
         onTap: onTabTapped,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.add),
+            label: 'Tambah Obat',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.last_page_rounded),
-            label: 'About',
+            icon: Icon(Icons.list),
+            label: 'Detail Obat',
           ),
         ],
         backgroundColor: Colors.white,

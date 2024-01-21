@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_obat/view/screen/category_screen.dart';
-import 'package:flutter_obat/view/screen/about_screen.dart';
+import 'package:flutter_obat/view/screen/rs/rs_screen.dart';
+import 'package:flutter_obat/view/screen/rs/list_rs.dart';
 
-class DynamicBottomNavBar extends StatefulWidget {
-  const DynamicBottomNavBar({super.key});
+class DynamicBottomNavBarRS extends StatefulWidget {
+  const DynamicBottomNavBarRS({super.key});
 
   @override
-  State<DynamicBottomNavBar> createState() => _DynamicBottomNavBarState();
+  State<DynamicBottomNavBarRS> createState() => _DynamicBottomNavBarRSState();
 }
 
-class _DynamicBottomNavBarState extends State<DynamicBottomNavBar> {
+class _DynamicBottomNavBarRSState extends State<DynamicBottomNavBarRS> {
   int _currentPageIndex = 0;
 
   final List<Widget> _pages = <Widget>[
-    const CategoriesScreen(),
-    const MyShared(),
+    const RSScreen(),
+    const ListRS(),
   ];
   void onTabTapped(int index) {
     setState(() {
@@ -31,12 +31,12 @@ class _DynamicBottomNavBarState extends State<DynamicBottomNavBar> {
         onTap: onTabTapped,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.add),
+            label: 'Tambah RS',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.last_page_rounded),
-            label: 'About',
+            icon: Icon(Icons.list),
+            label: 'Detail RS',
           ),
         ],
         backgroundColor: Colors.white,

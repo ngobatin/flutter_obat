@@ -3,11 +3,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter_obat/model/login_model.dart';
 import 'dart:convert';
 
-class ApiServices {
+class ApiLogin {
   final Dio dio = Dio();
   final String _baseUrl =
       'https://asia-southeast2-obat-409909.cloudfunctions.net';
 
+  //login
   Future<LoginResponse?> login(LoginInput login) async {
     try {
       final response = await dio.post(

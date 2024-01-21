@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_obat/view/screen/login_screen.dart';
-import 'package:flutter_obat/view/widget/bottom.dart';
+import 'package:flutter_obat/view/screen/login_screen.dart';
+// import 'package:flutter_obat/view/widget/bottom.dart';
 import 'package:flutter_obat/view/widget/index.dart';
 
 class IndexScreen extends StatefulWidget {
@@ -32,12 +32,19 @@ class _IndexScreenState extends State<IndexScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(),
       body: SizedBox(
         width: double.infinity,
         child: SafeArea(
           child: Column(
             children: <Widget>[
+              const SizedBox(height: 60),
+              const Text(
+                "Psikofarmaka",
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               Expanded(
                 flex: 3,
                 child: PageView.builder(
@@ -48,8 +55,8 @@ class _IndexScreenState extends State<IndexScreen> {
                   },
                   itemCount: indexData.length,
                   itemBuilder: (context, index) => IndexContent(
-                    image: indexData[index]["image"],
                     text: indexData[index]['text'],
+                    image: indexData[index]["image"],
                   ),
                 ),
               ),
@@ -80,23 +87,47 @@ class _IndexScreenState extends State<IndexScreen> {
                       ),
                       const Spacer(flex: 3),
                       SizedBox(
-                        width: double
-                            .infinity, // Set lebar tombol menjadi sepanjang layar
+                        width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                // builder: (context) => const LoginScreen(),
-                                builder: (context) =>
-                                    const DynamicBottomNavBar(),
+                                builder: (context) => const LoginScreen(),
+                                // builder: (context) =>
+                                //     const DynamicBottomNavBar(),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue,
+                          ),
+                          child: const Text(
+                            "Register",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const LoginScreen(),
+                                // builder: (context) =>
+                                //     const DynamicBottomNavBar(),
                               ),
                             );
                           },
                           child: const Text("Login"),
                         ),
                       ),
-                      const Spacer(),
+                      const SizedBox(height: 60),
                     ],
                   ),
                 ),
