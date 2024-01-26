@@ -19,7 +19,7 @@ class _PenyakitScreenState extends State<PenyakitScreen> {
   final _deskripsi = TextEditingController();
   // final _namaObat = TextEditingController();
   String _result = '-';
-  String? selectedObat;
+  String? _selectedObat;
 
   final ApiPenyakit _dataService = ApiPenyakit();
   List<PenyakitModel> _penyakitModel = [];
@@ -89,6 +89,9 @@ class _PenyakitScreenState extends State<PenyakitScreen> {
               const SizedBox(height: 20.0),
               TextField(
                 controller: _jenisPenyakit,
+                onChanged: (value) {
+                  setState(() {});
+                },
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -99,15 +102,24 @@ class _PenyakitScreenState extends State<PenyakitScreen> {
                   ),
                   labelText: 'Jenis Penyakit',
                   hintText: 'Masukkan jenis penyakit',
-                  suffixIcon: IconButton(
-                    onPressed: _jenisPenyakit.clear,
-                    icon: const Icon(Icons.clear),
-                  ),
+                  suffixIcon: _jenisPenyakit.text.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _jenisPenyakit.clear();
+                            });
+                          },
+                          icon: const Icon(Icons.clear),
+                        )
+                      : null,
                 ),
               ),
               const SizedBox(height: 8.0),
               TextField(
                 controller: _namaPenyakit,
+                 onChanged: (value) {
+                  setState(() {});
+                },
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -118,16 +130,25 @@ class _PenyakitScreenState extends State<PenyakitScreen> {
                   ),
                   labelText: 'Nama Penyakit',
                   hintText: 'Masukkan nama penyakit',
-                  suffixIcon: IconButton(
-                    onPressed: _namaPenyakit.clear,
-                    icon: const Icon(Icons.clear),
-                  ),
+                  suffixIcon: _namaPenyakit.text.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _namaPenyakit.clear();
+                            });
+                          },
+                          icon: const Icon(Icons.clear),
+                        )
+                      : null,
                 ),
               ),
               const SizedBox(height: 8.0),
               TextField(
                 controller: _deskripsi,
                 maxLines: 3,
+                 onChanged: (value) {
+                  setState(() {});
+                },
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -138,19 +159,25 @@ class _PenyakitScreenState extends State<PenyakitScreen> {
                   ),
                   labelText: 'Deskripsi',
                   hintText: 'Masukkan deskripsi',
-                  suffixIcon: IconButton(
-                    onPressed: _deskripsi.clear,
-                    icon: const Icon(Icons.clear),
-                  ),
+                  suffixIcon: _deskripsi.text.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _deskripsi.clear();
+                            });
+                          },
+                          icon: const Icon(Icons.clear),
+                        )
+                      : null,
                 ),
               ),
               const SizedBox(height: 8.0),
               DropdownButtonFormField2<String>(
-                value: selectedObat,
+                value: _selectedObat,
                 isExpanded: true,
                 onChanged: (String? newValue) {
                   setState(() {
-                    selectedObat = newValue;
+                    _selectedObat = newValue;
                   });
                 },
                 items: obatNames.map<DropdownMenuItem<String>>((String value) {
@@ -169,14 +196,16 @@ class _PenyakitScreenState extends State<PenyakitScreen> {
                   ),
                   labelText: 'Nama Obat',
                   hintText: 'Pilih nama obat',
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        selectedObat = null;
-                      });
-                    },
-                    icon: const Icon(Icons.clear),
-                  ),
+                  suffixIcon: _selectedObat != null
+                      ? IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _selectedObat = null;
+                            });
+                          },
+                          icon: const Icon(Icons.clear),
+                        )
+                      : null,
                 ),
                 dropdownStyleData: DropdownStyleData(
                   decoration: BoxDecoration(
@@ -197,7 +226,7 @@ class _PenyakitScreenState extends State<PenyakitScreen> {
                           if (_namaPenyakit.text.isEmpty ||
                               _jenisPenyakit.text.isEmpty ||
                               _deskripsi.text.isEmpty ||
-                              selectedObat == null) {
+                              _selectedObat == null) {
                             displaySnackbar('Semua field harus diisi');
                             return;
                           }
@@ -205,7 +234,7 @@ class _PenyakitScreenState extends State<PenyakitScreen> {
                             jenisPenyakit: _jenisPenyakit.text,
                             namaPenyakit: _namaPenyakit.text,
                             deskripsi: _deskripsi.text,
-                            namaObat: selectedObat!,
+                            namaObat: _selectedObat!,
                           );
                           PenyakitResponse? res;
                           if (isEdit) {
@@ -222,7 +251,7 @@ class _PenyakitScreenState extends State<PenyakitScreen> {
                           _namaPenyakit.clear();
                           _jenisPenyakit.clear();
                           _deskripsi.clear();
-                          selectedObat = null;
+                          _selectedObat = null;
                           await refreshPenyakitList();
                         },
                         child: Text(isEdit ? 'UPDATE' : 'POST'),
@@ -324,7 +353,7 @@ class _PenyakitScreenState extends State<PenyakitScreen> {
                           _namaPenyakit.text = penyakits.namaPenyakit;
                           _jenisPenyakit.text = penyakits.jenisPenyakit;
                           _deskripsi.text = penyakits.deskripsi;
-                          selectedObat = penyakits.obat.namaObat;
+                          _selectedObat = penyakits.obat.namaObat;
                           isEdit = true;
                           idPenyakit = penyakits.id;
                         }

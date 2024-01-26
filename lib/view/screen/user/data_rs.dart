@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_obat/model/obat_model.dart';
 import 'package:flutter_obat/model/rs_model.dart';
-import 'package:flutter_obat/service/api_obat.dart';
 import 'package:flutter_obat/service/api_rs.dart';
 
 class DataRS extends StatefulWidget {

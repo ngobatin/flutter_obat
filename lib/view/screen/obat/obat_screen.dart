@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_obat/model/obat_model.dart';
 import 'package:flutter_obat/service/api_obat.dart';
@@ -24,7 +22,6 @@ class _ObatScreenState extends State<ObatScreen> {
   PlatformFile? file;
   String? _namaFile;
   String? _pathFile;
-  bool _gambarTerisi = false;
 
   final ApiObat _dataService = ApiObat();
   List<ObatModel> _obatModel = [];
@@ -95,6 +92,9 @@ class _ObatScreenState extends State<ObatScreen> {
               const SizedBox(height: 20.0),
               TextField(
                 controller: _jenisObat,
+                onChanged: (value) {
+                  setState(() {});
+                },
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -105,15 +105,24 @@ class _ObatScreenState extends State<ObatScreen> {
                   ),
                   labelText: 'Jenis Obat',
                   hintText: 'Masukkan jenis obat',
-                  suffixIcon: IconButton(
-                    onPressed: _jenisObat.clear,
-                    icon: const Icon(Icons.clear),
-                  ),
+                  suffixIcon: _jenisObat.text.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _jenisObat.clear();
+                            });
+                          },
+                          icon: const Icon(Icons.clear),
+                        )
+                      : null,
                 ),
               ),
               const SizedBox(height: 8.0),
               TextField(
                 controller: _namaObat,
+                onChanged: (value) {
+                  setState(() {});
+                },
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -124,16 +133,25 @@ class _ObatScreenState extends State<ObatScreen> {
                   ),
                   labelText: 'Nama Obat',
                   hintText: 'Masukkan nama obat',
-                  suffixIcon: IconButton(
-                    onPressed: _namaObat.clear,
-                    icon: const Icon(Icons.clear),
-                  ),
+                  suffixIcon: _namaObat.text.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _namaObat.clear();
+                            });
+                          },
+                          icon: const Icon(Icons.clear),
+                        )
+                      : null,
                 ),
               ),
               const SizedBox(height: 8.0),
               TextField(
                 controller: _deskripsi,
                 maxLines: 3,
+                onChanged: (value) {
+                  setState(() {});
+                },
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -144,12 +162,19 @@ class _ObatScreenState extends State<ObatScreen> {
                   ),
                   labelText: 'Deskripsi',
                   hintText: 'Masukkan deskripsi obat',
-                  suffixIcon: IconButton(
-                    onPressed: _deskripsi.clear,
-                    icon: const Icon(Icons.clear),
-                  ),
+                  suffixIcon: _deskripsi.text.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _deskripsi.clear();
+                            });
+                          },
+                          icon: const Icon(Icons.clear),
+                        )
+                      : null,
                 ),
               ),
+              const SizedBox(height: 8.0),
               buildFilePicker(context),
               const SizedBox(height: 8.0),
               Row(
@@ -210,29 +235,31 @@ class _ObatScreenState extends State<ObatScreen> {
                 ],
               ),
               hasilCard(context),
-              Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        await refreshObatList();
-                        setState(() {});
-                      },
-                      child: const Text('Refresh Data'),
+              Flexible(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          await refreshObatList();
+                          setState(() {});
+                        },
+                        child: const Text('Refresh Data'),
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 8.0),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _result = '-';
-                        _obatModel.clear();
-                        obatRes = null;
-                      });
-                    },
-                    child: const Text('Reset'),
-                  ),
-                ],
+                    const SizedBox(width: 8.0),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _result = '-';
+                          _obatModel.clear();
+                          obatRes = null;
+                        });
+                      },
+                      child: const Text('Reset'),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 8.0),
               const Text(
@@ -262,56 +289,37 @@ class _ObatScreenState extends State<ObatScreen> {
   }
 
   Widget buildFilePicker(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // if (_pathFile != null)
-          //   SizedBox(
-          //     width: 300,
-          //     child: SingleChildScrollView(
-          //       child: Container(
-          //         decoration: BoxDecoration(
-          //           border: Border.all(
-          //             width: 1,
-          //           ),
-          //         ),
-          //         child: Column(
-          //           children: [
-          //             Image.file(
-          //               File(_pathFile.toString()),
-          //             )
-          //           ],
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          const SizedBox(
-            height: 5,
-          ),
-          if (_namaFile != null) Text('File: $_namaFile'),
-          if (_gambarTerisi && _namaFile == null)
-            const Text(
-              'Gambar harus diisi',
-              style: TextStyle(color: Color.fromRGBO(212, 50, 50, 1)),
-            ),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-              const Color.fromRGBO(18, 140, 126, 1),
-            )),
-            onPressed: () async {
-              _pickFile();
-            },
-            child: const Text(
-              'Masukkan Gambar',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-          const SizedBox(height: 20)
-        ],
+    return TextField(
+      controller: TextEditingController(text: _namaFile),
+      readOnly: true,
+      onChanged: (value) {
+        setState(() {});
+      },
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 12,
+        ),
+        labelText: 'Gambar Obat',
+        hintText: 'Masukkan gambar obat',
+        suffixIcon: _namaFile != null
+            ? IconButton(
+                icon: const Icon(Icons.clear),
+                onPressed: () {
+                  setState(() {
+                    _namaFile = null;
+                  });
+                },
+              )
+            : IconButton(
+                icon: const Icon(Icons.attach_file),
+                onPressed: () async {
+                  _pickFile();
+                },
+              ),
       ),
     );
   }

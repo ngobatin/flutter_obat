@@ -63,8 +63,8 @@ class _ListObatState extends State<ListObat> {
                     child: ListTile(
                       leading: CachedNetworkImage(
                         imageUrl: obat[index].gambar,
-                        width: 100,
-                        height: 100,
+                        width: 50,
+                        height: 50,
                         fit: BoxFit.cover,
                       ),
                       title: Text(obat[index].namaObat),

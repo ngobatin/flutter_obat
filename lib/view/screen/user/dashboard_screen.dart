@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_obat/view/screen/detail_screen.dart';
 import 'package:flutter_obat/view/screen/user/data_obat.dart';
 import 'package:flutter_obat/view/screen/user/data_penyakit.dart';
 import 'package:flutter_obat/view/screen/user/data_rs.dart';
+import 'package:flutter_obat/view/widget/dashboard.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -12,10 +12,26 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  // Contoh data
-  // List<String> obatList = ['Paracetamol', 'Aspirin', 'Antibiotik'];
-  // List<String> penyakitList = ['Flu', 'Demam', 'Pilek'];
-  // List<String> rumahSakitList = ['RS Awal Bros', 'RS Mitra', 'RS Sentosa'];
+  List<Map<String, dynamic>> categories = [
+    {
+      "image": "assets/images/medicine.png",
+      "text": "Obat",
+      "data": "10",
+      "screen": const DataObat()
+    },
+    {
+      "image": "assets/images/disease.png",
+      "text": "Penyakit",
+      "data": "10",
+      "screen": const DataPenyakit()
+    },
+    {
+      "image": "assets/images/hospital.png",
+      "text": "Rumah Sakit",
+      "data": "10",
+      "screen": const DataRS()
+    }
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -27,61 +43,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
         padding: const EdgeInsets.all(20),
         child: GridView.count(
           crossAxisCount: 2,
-          children: [
-            buildCard("Obat", "assets/images/medicine.png"),
-            buildCard("Penyakit", "assets/images/disease.png"),
-            buildCard("Rumah Sakit", "assets/images/hospital.png"),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Card buildCard(String title, String imageUrl) {
-    return Card(
-      semanticContainer: true,
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      child: InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  // DetailScreen(data: data, title: '$title Detail')
-                  const DataObat(),
+          children: List.generate(
+            categories.length,
+            (index) => DashboardCard(
+              image: categories[index]['image'],
+              text: categories[index]['text'],
+              press: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => categories[index]['screen'],
+                  ),
+                );
+              },
             ),
-          );
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const DataRS(),
-            ),
-          );
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const DataPenyakit(),
-            ),
-          );
-        },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              imageUrl,
-              height: 100,
-              width: 100,
-            ),
-            SizedBox(height: 10),
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 10),
-          ],
+          ),
         ),
       ),
     );

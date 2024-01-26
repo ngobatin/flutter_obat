@@ -71,6 +71,9 @@ class _RSScreenState extends State<RSScreen> {
               const SizedBox(height: 20.0),
               TextField(
                 controller: _namaRS,
+                onChanged: (value) {
+                  setState(() {});
+                },
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -81,15 +84,24 @@ class _RSScreenState extends State<RSScreen> {
                   ),
                   labelText: 'Nama RS',
                   hintText: 'Masukkan Nama RS',
-                  suffixIcon: IconButton(
-                    onPressed: _namaRS.clear,
-                    icon: const Icon(Icons.clear),
-                  ),
+                  suffixIcon: _namaRS.text.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _namaRS.clear();
+                            });
+                          },
+                          icon: const Icon(Icons.clear),
+                        )
+                      : null,
                 ),
               ),
               const SizedBox(height: 8.0),
               TextField(
                 controller: _noTelp,
+                onChanged: (value) {
+                  setState(() {});
+                },
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -101,15 +113,24 @@ class _RSScreenState extends State<RSScreen> {
                   ),
                   labelText: 'No. Telp',
                   hintText: 'Masukkan No. Telp',
-                  suffixIcon: IconButton(
-                    onPressed: _noTelp.clear,
-                    icon: const Icon(Icons.clear),
-                  ),
+                  suffixIcon: _noTelp.text.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _noTelp.clear();
+                            });
+                          },
+                          icon: const Icon(Icons.clear),
+                        )
+                      : null,
                 ),
               ),
               const SizedBox(height: 8.0),
               TextField(
                 controller: _alamat,
+                onChanged: (value) {
+                  setState(() {});
+                },
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -120,15 +141,24 @@ class _RSScreenState extends State<RSScreen> {
                   ),
                   labelText: 'Alamat',
                   hintText: 'Masukkan Alamat',
-                  suffixIcon: IconButton(
-                    onPressed: _alamat.clear,
-                    icon: const Icon(Icons.clear),
-                  ),
+                  suffixIcon: _alamat.text.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _alamat.clear();
+                            });
+                          },
+                          icon: const Icon(Icons.clear),
+                        )
+                      : null,
                 ),
               ),
               const SizedBox(height: 8.0),
               TextField(
                 controller: _lat,
+                onChanged: (value) {
+                  setState(() {});
+                },
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -140,15 +170,24 @@ class _RSScreenState extends State<RSScreen> {
                   ),
                   labelText: 'Latitude',
                   hintText: 'Masukkan Latitude',
-                  suffixIcon: IconButton(
-                    onPressed: _lat.clear,
-                    icon: const Icon(Icons.clear),
-                  ),
+                  suffixIcon: _lat.text.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _lat.clear();
+                            });
+                          },
+                          icon: const Icon(Icons.clear),
+                        )
+                      : null,
                 ),
               ),
               const SizedBox(height: 8.0),
               TextField(
                 controller: _long,
+                onChanged: (value) {
+                  setState(() {});
+                },
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -160,10 +199,16 @@ class _RSScreenState extends State<RSScreen> {
                   ),
                   labelText: 'Longitude',
                   hintText: 'Masukkan Longitude',
-                  suffixIcon: IconButton(
-                    onPressed: _long.clear,
-                    icon: const Icon(Icons.clear),
-                  ),
+                  suffixIcon: _long.text.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _long.clear();
+                            });
+                          },
+                          icon: const Icon(Icons.clear),
+                        )
+                      : null,
                 ),
               ),
               const SizedBox(height: 8.0),
