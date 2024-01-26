@@ -1,4 +1,6 @@
 //DIGUNAKAN UNTUK GET ALL DATA
+import 'package:dio/dio.dart';
+
 class RSModel {
   final String id;
   final String namaRS;
@@ -6,6 +8,7 @@ class RSModel {
   final String alamat;
   final String latitude;
   final String longitude;
+  final String gambar;
 
   RSModel({
     required this.id,
@@ -14,6 +17,7 @@ class RSModel {
     required this.alamat,
     required this.latitude,
     required this.longitude,
+    required this.gambar,
   });
 
   factory RSModel.fromJson(Map<String, dynamic> json) => RSModel(
@@ -23,6 +27,7 @@ class RSModel {
         alamat: json["alamat"],
         latitude: json["latitude"],
         longitude: json["longitude"],
+        gambar: json["gambar"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -32,6 +37,7 @@ class RSModel {
         "alamat": alamat,
         "latitude": latitude,
         "longitude": longitude,
+        "gambar": gambar,
       };
 }
 
@@ -42,6 +48,8 @@ class RSInput {
   final String alamat;
   final String latitude;
   final String longitude;
+  final String imagePath;
+  final String imageName;
 
   RSInput({
     required this.namaRS,
@@ -49,15 +57,18 @@ class RSInput {
     required this.alamat,
     required this.latitude,
     required this.longitude,
+    required this.imagePath,
+    required this.imageName,
   });
 
-  Map<String, dynamic> toJson() => {
+  FormData formData() => FormData.fromMap({
         "nama_rs": namaRS,
         "no_telp": noTelp,
         "alamat": alamat,
         "latitude": latitude,
         "longitude": longitude,
-      };
+        "file": MultipartFile.fromFileSync(imagePath, filename: imageName),
+      });
 }
 
 //DIGUNAKAN UNTUK RESPONSE

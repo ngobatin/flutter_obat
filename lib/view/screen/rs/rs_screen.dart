@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_obat/model/rs_model.dart';
 import 'package:flutter_obat/service/api_rs.dart';
 import 'package:flutter_obat/view/widget/rs_card.dart';
+import 'package:file_picker/file_picker.dart';
 
 class RSScreen extends StatefulWidget {
   const RSScreen({super.key});
@@ -19,6 +20,10 @@ class _RSScreenState extends State<RSScreen> {
   final _long = TextEditingController();
   String _result = '-';
 
+  PlatformFile? file;
+  String? _namaFile;
+  String? _pathFile;
+
   final ApiRS _dataService = ApiRS();
   List<RSModel> _rsModel = [];
 
@@ -35,6 +40,18 @@ class _RSScreenState extends State<RSScreen> {
     _lat.dispose();
     _long.dispose();
     super.dispose();
+  }
+
+  void _pickFile() async {
+    final result = await FilePicker.platform.pickFiles();
+    if (result == null) return;
+
+    file = result.files.single;
+
+    setState(() {
+      _namaFile = file!.name;
+      _pathFile = file!.path;
+    });
   }
 
   Future<void> refreshRSList() async {
@@ -154,63 +171,78 @@ class _RSScreenState extends State<RSScreen> {
                 ),
               ),
               const SizedBox(height: 8.0),
-              TextField(
-                controller: _lat,
-                onChanged: (value) {
-                  setState(() {});
-                },
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 5.0),
+                      child: TextField(
+                        controller: _lat,
+                        onChanged: (value) {
+                          setState(() {});
+                        },
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 12,
+                          ),
+                          labelText: 'Latitude',
+                          hintText: 'Masukkan Latitude',
+                          suffixIcon: _lat.text.isNotEmpty
+                              ? IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _lat.clear();
+                                    });
+                                  },
+                                  icon: const Icon(Icons.clear),
+                                )
+                              : null,
+                        ),
+                      ),
+                    ),
                   ),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 5.0),
+                      child: TextField(
+                        controller: _long,
+                        onChanged: (value) {
+                          setState(() {});
+                        },
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 12,
+                          ),
+                          labelText: 'Longitude',
+                          hintText: 'Masukkan Longitude',
+                          suffixIcon: _long.text.isNotEmpty
+                              ? IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _long.clear();
+                                    });
+                                  },
+                                  icon: const Icon(Icons.clear),
+                                )
+                              : null,
+                        ),
+                      ),
+                    ),
                   ),
-                  labelText: 'Latitude',
-                  hintText: 'Masukkan Latitude',
-                  suffixIcon: _lat.text.isNotEmpty
-                      ? IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _lat.clear();
-                            });
-                          },
-                          icon: const Icon(Icons.clear),
-                        )
-                      : null,
-                ),
+                ],
               ),
               const SizedBox(height: 8.0),
-              TextField(
-                controller: _long,
-                onChanged: (value) {
-                  setState(() {});
-                },
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
-                  ),
-                  labelText: 'Longitude',
-                  hintText: 'Masukkan Longitude',
-                  suffixIcon: _long.text.isNotEmpty
-                      ? IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _long.clear();
-                            });
-                          },
-                          icon: const Icon(Icons.clear),
-                        )
-                      : null,
-                ),
-              ),
+              buildFilePicker(context),
               const SizedBox(height: 8.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -235,6 +267,8 @@ class _RSScreenState extends State<RSScreen> {
                             alamat: _alamat.text,
                             latitude: _lat.text,
                             longitude: _long.text,
+                            imagePath: _pathFile!,
+                            imageName: _namaFile!,
                           );
                           RSResponse? res;
                           if (isEdit) {
@@ -327,6 +361,42 @@ class _RSScreenState extends State<RSScreen> {
   dynamic displaySnackbar(String msg) {
     return ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text(msg)));
+  }
+
+  Widget buildFilePicker(BuildContext context) {
+    return TextField(
+      controller: TextEditingController(text: _namaFile),
+      readOnly: true,
+      onChanged: (value) {
+        setState(() {});
+      },
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 12,
+        ),
+        labelText: 'Gambar RS',
+        hintText: 'Masukkan gambar RS',
+        suffixIcon: _namaFile != null
+            ? IconButton(
+                icon: const Icon(Icons.clear),
+                onPressed: () {
+                  setState(() {
+                    _namaFile = null;
+                  });
+                },
+              )
+            : IconButton(
+                icon: const Icon(Icons.attach_file),
+                onPressed: () async {
+                  _pickFile();
+                },
+              ),
+      ),
+    );
   }
 
   Widget _buildListRS() {

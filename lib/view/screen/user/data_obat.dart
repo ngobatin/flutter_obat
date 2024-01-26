@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_obat/model/obat_model.dart';
 import 'package:flutter_obat/service/api_obat.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class DataObat extends StatefulWidget {
   const DataObat({super.key});
@@ -44,22 +45,18 @@ class _DataObatState extends State<DataObat> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
-            const Center(
-              child: Text(
-                "List Obat",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
             Expanded(
               child: ListView.builder(
                 itemCount: obat.length,
                 itemBuilder: (context, index) {
                   return Card(
                     child: ListTile(
+                      leading: CachedNetworkImage(
+                        imageUrl: obat[index].gambar,
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                      ),
                       title: Text(obat[index].namaObat),
                       trailing: ElevatedButton(
                         onPressed: () {

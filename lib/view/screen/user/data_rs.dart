@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_obat/model/rs_model.dart';
 import 'package:flutter_obat/service/api_rs.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class DataRS extends StatefulWidget {
   const DataRS({super.key});
@@ -44,22 +45,18 @@ class _DataRSState extends State<DataRS> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
-            const Center(
-              child: Text(
-                "List Rumah Sakit",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
             Expanded(
               child: ListView.builder(
                 itemCount: rs.length,
                 itemBuilder: (context, index) {
                   return Card(
                     child: ListTile(
+                      leading: CachedNetworkImage(
+                        imageUrl: rs[index].gambar,
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                      ),
                       title: Text(rs[index].namaRS),
                       trailing: ElevatedButton(
                         onPressed: () {

@@ -61,7 +61,7 @@ class ApiRS {
     try {
       final response = await dio.post(
         '$_baseUrl/rs',
-        data: rs.toJson(),
+        data: rs.formData(),
       );
       if (response.statusCode == 200) {
         return RSResponse.fromJson(json.decode(response.data));
@@ -76,7 +76,7 @@ class ApiRS {
     try {
       final response = await Dio().put(
         '$_baseUrl/rs?_id=$id',
-        data: rs.toJson(),
+        data: rs.formData(),
       );
       if (response.statusCode == 200) {
         return RSResponse.fromJson(json.decode(response.data));

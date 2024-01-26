@@ -44,16 +44,6 @@ class _DataPenyakitState extends State<DataPenyakit> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
-            const Center(
-              child: Text(
-                "List Penyakit",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
             Expanded(
               child: ListView.builder(
                 itemCount: penyakit.length,
