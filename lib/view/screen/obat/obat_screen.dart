@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_obat/model/obat_model.dart';
 import 'package:flutter_obat/service/api_obat.dart';
 import 'package:flutter_obat/view/widget/obat_card.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ObatScreen extends StatefulWidget {
   const ObatScreen({super.key});
@@ -17,6 +21,11 @@ class _ObatScreenState extends State<ObatScreen> {
   final _deskripsi = TextEditingController();
   String _result = '-';
 
+  PlatformFile? file;
+  String? _namaFile;
+  String? _pathFile;
+  bool _gambarTerisi = false;
+
   final ApiObat _dataService = ApiObat();
   List<ObatModel> _obatModel = [];
 
@@ -31,6 +40,25 @@ class _ObatScreenState extends State<ObatScreen> {
     _jenisObat.dispose();
     _deskripsi.dispose();
     super.dispose();
+  }
+
+  bool _validateFile(String? pathFile) {
+    if (pathFile == null) {
+      return true;
+    }
+    return false;
+  }
+
+  void _pickFile() async {
+    final result = await FilePicker.platform.pickFiles();
+    if (result == null) return;
+
+    file = result.files.single;
+
+    setState(() {
+      _namaFile = file!.name;
+      _pathFile = file!.path;
+    });
   }
 
   Future<void> refreshObatList() async {
@@ -122,6 +150,7 @@ class _ObatScreenState extends State<ObatScreen> {
                   ),
                 ),
               ),
+              buildFilePicker(context),
               const SizedBox(height: 8.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -142,6 +171,8 @@ class _ObatScreenState extends State<ObatScreen> {
                             jenisObat: _jenisObat.text,
                             namaObat: _namaObat.text,
                             deskripsi: _deskripsi.text,
+                            imagePath: _pathFile!,
+                            imageName: _namaFile!,
                           );
                           ObatResponse? res;
                           if (isEdit) {
@@ -230,16 +261,74 @@ class _ObatScreenState extends State<ObatScreen> {
         .showSnackBar(SnackBar(content: Text(msg)));
   }
 
+  Widget buildFilePicker(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // if (_pathFile != null)
+          //   SizedBox(
+          //     width: 300,
+          //     child: SingleChildScrollView(
+          //       child: Container(
+          //         decoration: BoxDecoration(
+          //           border: Border.all(
+          //             width: 1,
+          //           ),
+          //         ),
+          //         child: Column(
+          //           children: [
+          //             Image.file(
+          //               File(_pathFile.toString()),
+          //             )
+          //           ],
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          const SizedBox(
+            height: 5,
+          ),
+          if (_namaFile != null) Text('File: $_namaFile'),
+          if (_gambarTerisi && _namaFile == null)
+            const Text(
+              'Gambar harus diisi',
+              style: TextStyle(color: Color.fromRGBO(212, 50, 50, 1)),
+            ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+              const Color.fromRGBO(18, 140, 126, 1),
+            )),
+            onPressed: () async {
+              _pickFile();
+            },
+            child: const Text(
+              'Masukkan Gambar',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          const SizedBox(height: 20)
+        ],
+      ),
+    );
+  }
+
   Widget _buildListObat() {
     return ListView.separated(
         itemBuilder: (context, index) {
           final obatList = _obatModel[index];
           return Card(
             child: ListTile(
-// leading: Text(user.id),
-              // title: Text(obatList.jenisObat),
+              leading: CachedNetworkImage(
+                imageUrl: obatList.gambar,
+                width: 50,
+                height: 50,
+                fit: BoxFit.cover,
+              ),
               title: Text(obatList.namaObat),
-
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [

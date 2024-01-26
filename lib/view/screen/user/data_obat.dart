@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_obat/model/obat_model.dart';
 import 'package:flutter_obat/service/api_obat.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
-class ListObat extends StatefulWidget {
-  const ListObat({super.key});
+class DataObat extends StatefulWidget {
+  const DataObat({super.key});
 
   @override
-  State<ListObat> createState() => _ListObatState();
+  State<DataObat> createState() => _DataObatState();
 }
 
-class _ListObatState extends State<ListObat> {
+class _DataObatState extends State<DataObat> {
   final ApiObat _dataService = ApiObat();
   List<ObatModel> obat = [];
 
@@ -61,12 +60,6 @@ class _ListObatState extends State<ListObat> {
                 itemBuilder: (context, index) {
                   return Card(
                     child: ListTile(
-                      leading: CachedNetworkImage(
-                        imageUrl: obat[index].gambar,
-                        width: 100,
-                        height: 100,
-                        fit: BoxFit.cover,
-                      ),
                       title: Text(obat[index].namaObat),
                       trailing: ElevatedButton(
                         onPressed: () {

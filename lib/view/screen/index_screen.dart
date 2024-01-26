@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_obat/view/screen/category_screen.dart';
-// import 'package:flutter_obat/view/screen/dashboard_screen.dart';
+import 'package:flutter_obat/view/screen/user/dashboard_screen.dart';
 import 'package:flutter_obat/view/screen/login_screen.dart';
 // import 'package:flutter_obat/view/widget/bottom.dart';
 import 'package:flutter_obat/view/widget/index.dart';
@@ -95,7 +95,7 @@ class _IndexScreenState extends State<IndexScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const LoginScreen(),
+                                builder: (context) => const DashboardScreen(),
                                 // builder: (context) =>
                                 //     const DynamicBottomNavBar(),
                               ),

@@ -19,6 +19,7 @@ class PenyakitModel {
           jenisObat: "",
           namaObat: namaObat,
           deskripsi: "",
+          gambar: "",
         );
 
   factory PenyakitModel.fromJson(Map<String, dynamic> json) => PenyakitModel(
@@ -54,13 +55,15 @@ class PenyakitInput {
           jenisObat: "",
           namaObat: namaObat,
           deskripsi: "",
+          imagePath: "",
+          imageName: "",
         );
 
   Map<String, dynamic> toJson() => {
         "jenis_penyakit": jenisPenyakit,
         "nama_penyakit": namaPenyakit,
         "deskripsi": deskripsi,
-        "obat": obat.toJson(),
+        "obat": obat.formData(),
       };
 }
 

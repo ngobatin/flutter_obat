@@ -15,15 +15,11 @@ class ApiObat {
         debugPrint(response.data.toString());
 
         var datas = json.decode(response.data);
-        if (datas['data'] is List) {
-          final obatList = (datas['data'] as List)
-              .map((obat) => ObatModel.fromJson(obat))
-              .toList();
-          return obatList;
-        } else {
-          debugPrint('Unexpected data format in the response');
-          return null;
-        }
+
+        final obatList = (datas['data'] as List)
+            .map((obat) => ObatModel.fromJson(obat))
+            .toList();
+        return obatList;
       }
       return null;
     } on DioException catch (e) {
@@ -61,9 +57,10 @@ class ApiObat {
     try {
       final response = await dio.post(
         '$_baseUrl/obat',
-        data: obat.toJson(),
+        data: obat.formData(),
       );
       if (response.statusCode == 200) {
+        debugPrint(response.data.toString());
         return ObatResponse.fromJson(json.decode(response.data));
       }
       return null;
@@ -76,7 +73,7 @@ class ApiObat {
     try {
       final response = await Dio().put(
         '$_baseUrl/obat?_id=$id',
-        data: obat.toJson(),
+        data: obat.formData(),
       );
       if (response.statusCode == 200) {
         return ObatResponse.fromJson(json.decode(response.data));

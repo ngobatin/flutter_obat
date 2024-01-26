@@ -1,15 +1,19 @@
 //DIGUNAKAN UNTUK GET ALL DATA
+import 'package:dio/dio.dart';
+
 class ObatModel {
   final String id;
   final String jenisObat;
   final String namaObat;
   final String deskripsi;
+  final String gambar;
 
   ObatModel({
     required this.id,
     required this.jenisObat,
     required this.namaObat,
     required this.deskripsi,
+    required this.gambar,
   });
 
   factory ObatModel.fromJson(Map<String, dynamic> json) => ObatModel(
@@ -17,6 +21,7 @@ class ObatModel {
         jenisObat: json["jenis_obat"],
         namaObat: json["nama_obat"],
         deskripsi: json["deskripsi"],
+        gambar: json["gambar"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -24,6 +29,7 @@ class ObatModel {
         "jenis_obat": jenisObat,
         "nama_obat": namaObat,
         "deskripsi": deskripsi,
+        "gambar": gambar,
       };
 }
 
@@ -32,18 +38,29 @@ class ObatInput {
   final String jenisObat;
   final String namaObat;
   final String deskripsi;
+  final String imagePath;
+  final String imageName;
 
   ObatInput({
     required this.jenisObat,
     required this.namaObat,
     required this.deskripsi,
+    required this.imagePath,
+    required this.imageName,
   });
 
-  Map<String, dynamic> toJson() => {
+  FormData formData() => FormData.fromMap({
         "jenis_obat": jenisObat,
         "nama_obat": namaObat,
         "deskripsi": deskripsi,
-      };
+        "file": MultipartFile.fromFileSync(imagePath, filename: imageName),
+      });
+
+  // Map<String, dynamic> toJson() => {
+  //       "jenis_obat": jenisObat,
+  //       "nama_obat": namaObat,
+  //       "deskripsi": deskripsi,
+  //     };
 }
 
 //DIGUNAKAN UNTUK RESPONSE

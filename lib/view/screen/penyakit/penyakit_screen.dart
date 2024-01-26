@@ -247,29 +247,31 @@ class _PenyakitScreenState extends State<PenyakitScreen> {
                 ],
               ),
               hasilCard(context),
-              Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        await refreshPenyakitList();
-                        setState(() {});
-                      },
-                      child: const Text('Refresh Data'),
+              Flexible(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          await refreshPenyakitList();
+                          setState(() {});
+                        },
+                        child: const Text('Refresh Data'),
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 8.0),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _result = '-';
-                        _penyakitModel.clear();
-                        penyakitRes = null;
-                      });
-                    },
-                    child: const Text('Reset'),
-                  ),
-                ],
+                    const SizedBox(width: 8.0),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _result = '-';
+                          _penyakitModel.clear();
+                          penyakitRes = null;
+                        });
+                      },
+                      child: const Text('Reset'),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 8.0),
               const Text(
