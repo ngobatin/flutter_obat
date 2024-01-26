@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_obat/view/screen/detail_screen.dart';
 import 'package:flutter_obat/view/screen/user/data_obat.dart';
+import 'package:flutter_obat/view/screen/user/data_penyakit.dart';
+import 'package:flutter_obat/view/screen/user/data_rs.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -47,6 +49,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
               builder: (context) =>
                   // DetailScreen(data: data, title: '$title Detail')
                   const DataObat(),
+            ),
+          );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const DataRS(),
+            ),
+          );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const DataPenyakit(),
             ),
           );
         },
