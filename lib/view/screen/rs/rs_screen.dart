@@ -321,8 +321,8 @@ class _RSScreenState extends State<RSScreen> {
                             namaRS: _namaRS.text,
                             noTelp: _noTelp.text,
                             alamat: _alamat.text,
-                            latitude: double.parse(_lat.text),
-                            longitude: double.parse(_long.text),
+                            latitude: _lat.text,
+                            longitude: _long.text,
                             imagePath: _pathFile!,
                             imageName: _namaFile!,
                           );

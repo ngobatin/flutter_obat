@@ -1,45 +1,23 @@
 import 'package:flutter_obat/service/api_user.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_obat/service/auth_manager.dart';
-import 'package:flutter_obat/view/screen/register_screen.dart';
-import 'package:flutter_obat/view/widget/bottom.dart';
+import 'package:flutter_obat/view/screen/login_screen.dart';
 import 'package:flutter_obat/model/user_model.dart';
-import 'package:flutter_obat/view/screen/user/dashboard_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
 
   final ApiUser _dataService = ApiUser();
-
-  @override
-  void initState() {
-    super.initState();
-    checkLogin();
-  }
-
-  void checkLogin() async {
-    bool isLoggedIn = await AuthManager.isLoggedIn();
-    if (isLoggedIn) {
-// ignore: use_build_context_synchronously
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const DynamicBottomNavBar(),
-        ),
-        (route) => false,
-      );
-    }
-  }
 
   @override
   void dispose() {
@@ -64,6 +42,16 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     if (value.length < 5) {
       return 'Masukkan minimal 5 karakter';
+    }
+    return null;
+  }
+
+  String? _validateConfirmPassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Confirm Password tidak boleh kosong';
+    }
+    if (value != _passwordController.text) {
+      return 'Password tidak sama';
     }
     return null;
   }
@@ -103,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         Text(
-                          'Silahkan Login!',
+                          'Silahkan Register!',
                           style: TextStyle(
                             fontSize: 15.0,
                             fontWeight: FontWeight.bold,
@@ -156,6 +144,28 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      obscureText: true,
+                      controller: _confirmPasswordController,
+                      validator: _validateConfirmPassword,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.password_rounded),
+                        hintText: 'Write confirm password here...',
+                        labelText: 'Confirm Password',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                        fillColor: const Color.fromARGB(255, 242, 254, 255),
+                        filled: true,
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 20),
                   SizedBox(
                     width: double.infinity,
@@ -163,37 +173,26 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () async {
                         final isValidForm = _formKey.currentState!.validate();
                         if (isValidForm) {
-                          final postModel = LoginInput(
+                          final postModel = RegisterInput(
                             username: _usernameController.text,
                             password: _passwordController.text,
+                            confirmPassword: _confirmPasswordController.text,
                           );
-                          LoginResponse? res =
-                              await _dataService.login(postModel);
-                          if (res!.status == 200) {
-                            await AuthManager.login(_usernameController.text);
-                            if (_usernameController.text.toLowerCase() ==
-                                'admin') {
+                          RegisterResponse? res =
+                              await _dataService.register(postModel);
+                          if (res != null) {
+                            if (res.status == 200) {
+                              displaySnackbar(res.message);
                               // ignore: use_build_context_synchronously
-                              Navigator.pushAndRemoveUntil(
+                              Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      const DynamicBottomNavBar(),
+                                  builder: (context) => const LoginScreen(),
                                 ),
-                                (route) => false,
                               );
                             } else {
-                              // ignore: use_build_context_synchronously
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const DashboardScreen(),
-                                ),
-                                (route) => false,
-                              );
+                              displaySnackbar(res.message);
                             }
-                          } else {
-                            displaySnackbar(res.message);
                           }
                         }
                       },
@@ -201,7 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         backgroundColor: Colors.blue,
                       ),
                       child: const Text(
-                        "Login",
+                        "Register",
                         style: TextStyle(
                           color: Colors.white,
                         ),
@@ -213,7 +212,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        'Belum punya akun? ',
+                        'Sudah punya akun? ',
                         style: TextStyle(
                           fontSize: 15,
                         ),
@@ -223,12 +222,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const RegisterScreen(),
+                              builder: (context) => const LoginScreen(),
                             ),
                           );
                         },
                         child: const Text(
-                          'Register',
+                          'Login',
                           style: TextStyle(
                             fontSize: 15.0,
                             fontWeight: FontWeight.bold,

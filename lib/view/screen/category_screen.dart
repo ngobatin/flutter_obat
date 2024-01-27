@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_obat/view/widget/category.dart';
-// import 'package:flutter_obat/view/screen/obat_screen.dart';
-// import 'package:flutter_obat/view/screen/penyakit/penyakit_screen.dart';
-// import 'package:flutter_obat/view/screen/rs/rs_screen.dart';
 import 'package:flutter_obat/view/screen/profile_screen.dart';
 import 'package:flutter_obat/service/auth_manager.dart';
 import 'package:flutter_obat/view/screen/login_screen.dart';
@@ -111,20 +108,16 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Column(
+                  child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          const Icon(Icons.account_circle_rounded),
-                          const SizedBox(width: 8.0),
-                          Text(
-                            'Login sebagai : $username',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                      const Icon(Icons.account_circle_rounded),
+                      const SizedBox(width: 8.0),
+                      Text(
+                        'Login sebagai : $username',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
