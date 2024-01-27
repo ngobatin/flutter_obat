@@ -14,6 +14,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final _usernameController = TextEditingController();
+  final _phoneNumberController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
@@ -32,6 +33,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
     if (value.length < 5) {
       return 'Masukkan minimal 5 karakter';
+    }
+    return null;
+  }
+
+  String? _validatePhoneNumber(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Nomor telepon tidak boleh kosong';
+    }
+    if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+      return 'Nomor telepon hanya boleh mengandung karakter angka';
+    }
+
+    String cleanedValue = value.replaceAll(RegExp(r'\D'), '');
+
+    if (!cleanedValue.startsWith('0')) {
+      return 'Nomor telepon harus diawali dengan 0';
+    }
+    if (cleanedValue.length < 8) {
+      return 'Nomor telepon minimal 8 karakter';
+    }
+    if (cleanedValue.length > 13) {
+      return 'Nomor telepon maksimal 13 karakter';
     }
     return null;
   }
@@ -125,6 +148,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
+                      validator: _validatePhoneNumber,
+                      controller: _phoneNumberController,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.account_circle_rounded),
+                        hintText: 'Write phone number here...',
+                        labelText: 'Phone Number',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                        fillColor: const Color.fromARGB(255, 242, 254, 255),
+                        filled: true,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
                       obscureText: true,
                       controller: _passwordController,
                       validator: _validatePassword,
@@ -175,6 +219,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         if (isValidForm) {
                           final postModel = RegisterInput(
                             username: _usernameController.text,
+                            phoneNumber: _phoneNumberController.text,
                             password: _passwordController.text,
                             confirmPassword: _confirmPasswordController.text,
                           );
@@ -197,7 +242,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
+                        backgroundColor: Colors.orange.shade900,
                       ),
                       child: const Text(
                         "Register",
@@ -213,9 +258,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     children: [
                       const Text(
                         'Sudah punya akun? ',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),
+                        style: TextStyle(fontSize: 15),
                       ),
                       GestureDetector(
                         onTap: () {
@@ -231,7 +274,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           style: TextStyle(
                             fontSize: 15.0,
                             fontWeight: FontWeight.bold,
-                            color: Colors.blue,
+                            color: Colors.orange,
                           ),
                         ),
                       ),

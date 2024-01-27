@@ -1,47 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_obat/model/obat_model.dart';
+import 'package:flutter_obat/model/penyakit_model.dart';
+import 'package:flutter_obat/service/api_penyakit.dart';
 import 'package:flutter_obat/service/api_obat.dart';
-import 'package:flutter_obat/view/widget/obat_card.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_obat/view/widget/penyakit_card.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
-class ObatScreen extends StatefulWidget {
-  const ObatScreen({super.key});
+class PenyakitScreen extends StatefulWidget {
+  const PenyakitScreen({super.key});
 
   @override
-  State<ObatScreen> createState() => _ObatScreenState();
+  State<PenyakitScreen> createState() => _PenyakitScreenState();
 }
 
-class _ObatScreenState extends State<ObatScreen> {
+class _PenyakitScreenState extends State<PenyakitScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _namaObat = TextEditingController();
-  final _jenisObat = TextEditingController();
+  final _namaPenyakit = TextEditingController();
+  final _jenisPenyakit = TextEditingController();
   final _deskripsi = TextEditingController();
+  // final _namaObat = TextEditingController();
   String _result = '-';
+  String? _selectedObat;
 
-  PlatformFile? file;
-  String? _namaFile;
-  String? _pathFile;
+  final ApiPenyakit _dataService = ApiPenyakit();
+  List<PenyakitModel> _penyakitModel = [];
 
-  final ApiObat _dataService = ApiObat();
-  List<ObatModel> _obatModel = [];
-
-  ObatResponse? obatRes;
+  PenyakitResponse? penyakitRes;
 
   bool isEdit = false;
-  String idObat = '';
+  String idPenyakit = '';
 
   @override
   void dispose() {
-    _namaObat.dispose();
-    _jenisObat.dispose();
+    _namaPenyakit.dispose();
+    _jenisPenyakit.dispose();
     _deskripsi.dispose();
+    // _namaObat.dispose();
     super.dispose();
   }
 
-  String? _validateObat(String? value) {
+  String? _validatePenyakit(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Data tidak boleh kosong';
+      return 'Data Tidak boleh kosong';
     }
     if (!RegExp(r'^[A-Z]').hasMatch(value)) {
       return 'Data harus diawali dengan huruf kapital';
@@ -53,31 +52,38 @@ class _ObatScreenState extends State<ObatScreen> {
     return null;
   }
 
-  bool _validateFile(String? pathFile) {
-    if (pathFile == null) {
-      return true;
+  String? _validateNamaObat(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Pilih nama obat';
     }
-    return false;
+    return null;
   }
 
-  void _pickFile() async {
-    final result = await FilePicker.platform.pickFiles();
-    if (result == null) return;
-
-    file = result.files.single;
-
+  Future<void> refreshPenyakitList() async {
+    final users = await _dataService.getAllPenyakit();
     setState(() {
-      _namaFile = file!.name;
-      _pathFile = file!.path;
+      if (_penyakitModel.isNotEmpty) _penyakitModel.clear();
+      if (users != null) _penyakitModel.addAll(users);
     });
   }
 
-  Future<void> refreshObatList() async {
-    final users = await _dataService.getAllObat();
-    setState(() {
-      if (_obatModel.isNotEmpty) _obatModel.clear();
-      if (users != null) _obatModel.addAll(users);
-    });
+  final ApiObat _dataServices = ApiObat();
+  List<String> obatNames = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _getAllObatNames();
+  }
+
+  Future<void> _getAllObatNames() async {
+    final obats = await _dataServices.getAllObatNames();
+    if (mounted) {
+      setState(() {
+        if (obatNames.isNotEmpty) obatNames.clear();
+        if (obats != null) obatNames.addAll(obats);
+      });
+    }
   }
 
   @override
@@ -92,8 +98,7 @@ class _ObatScreenState extends State<ObatScreen> {
           ),
         ),
         iconTheme: const IconThemeData(color: Colors.white),
-        // centerTitle: true,
-        backgroundColor: Colors.blue.shade600,
+        backgroundColor: Colors.orange.shade800,
       ),
       body: Container(
         width: double.infinity,
@@ -105,8 +110,8 @@ class _ObatScreenState extends State<ObatScreen> {
             children: [
               const SizedBox(height: 20.0),
               TextFormField(
-                controller: _jenisObat,
-                validator: _validateObat,
+                controller: _jenisPenyakit,
+                validator: _validatePenyakit,
                 onChanged: (value) {
                   setState(() {});
                 },
@@ -118,13 +123,13 @@ class _ObatScreenState extends State<ObatScreen> {
                     horizontal: 16,
                     vertical: 12,
                   ),
-                  labelText: 'Jenis Obat',
-                  hintText: 'Masukkan jenis obat',
-                  suffixIcon: _jenisObat.text.isNotEmpty
+                  labelText: 'Jenis Penyakit',
+                  hintText: 'Masukkan jenis penyakit',
+                  suffixIcon: _jenisPenyakit.text.isNotEmpty
                       ? IconButton(
                           onPressed: () {
                             setState(() {
-                              _jenisObat.clear();
+                              _jenisPenyakit.clear();
                             });
                           },
                           icon: const Icon(Icons.clear),
@@ -134,8 +139,8 @@ class _ObatScreenState extends State<ObatScreen> {
               ),
               const SizedBox(height: 8.0),
               TextFormField(
-                controller: _namaObat,
-                validator: _validateObat,
+                controller: _namaPenyakit,
+                validator: _validatePenyakit,
                 onChanged: (value) {
                   setState(() {});
                 },
@@ -147,13 +152,13 @@ class _ObatScreenState extends State<ObatScreen> {
                     horizontal: 16,
                     vertical: 12,
                   ),
-                  labelText: 'Nama Obat',
-                  hintText: 'Masukkan nama obat',
-                  suffixIcon: _namaObat.text.isNotEmpty
+                  labelText: 'Nama Penyakit',
+                  hintText: 'Masukkan nama penyakit',
+                  suffixIcon: _namaPenyakit.text.isNotEmpty
                       ? IconButton(
                           onPressed: () {
                             setState(() {
-                              _namaObat.clear();
+                              _namaPenyakit.clear();
                             });
                           },
                           icon: const Icon(Icons.clear),
@@ -164,7 +169,7 @@ class _ObatScreenState extends State<ObatScreen> {
               const SizedBox(height: 8.0),
               TextFormField(
                 controller: _deskripsi,
-                validator: _validateObat,
+                validator: _validatePenyakit,
                 maxLines: 3,
                 onChanged: (value) {
                   setState(() {});
@@ -178,7 +183,7 @@ class _ObatScreenState extends State<ObatScreen> {
                     vertical: 12,
                   ),
                   labelText: 'Deskripsi',
-                  hintText: 'Masukkan deskripsi obat',
+                  hintText: 'Masukkan deskripsi',
                   suffixIcon: _deskripsi.text.isNotEmpty
                       ? IconButton(
                           onPressed: () {
@@ -192,7 +197,48 @@ class _ObatScreenState extends State<ObatScreen> {
                 ),
               ),
               const SizedBox(height: 8.0),
-              buildFilePicker(context),
+              DropdownButtonFormField2<String>(
+                value: _selectedObat,
+                validator: _validateNamaObat,
+                isExpanded: true,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _selectedObat = newValue;
+                  });
+                },
+                items: obatNames.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
+                  labelText: 'Nama Obat',
+                  hintText: 'Pilih nama obat',
+                  suffixIcon: _selectedObat != null
+                      ? IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _selectedObat = null;
+                            });
+                          },
+                          icon: const Icon(Icons.clear),
+                        )
+                      : null,
+                ),
+                dropdownStyleData: DropdownStyleData(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+              ),
               const SizedBox(height: 8.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -203,49 +249,53 @@ class _ObatScreenState extends State<ObatScreen> {
                     children: [
                       ElevatedButton(
                         onPressed: () async {
-                          if (_namaObat.text.isEmpty ||
-                              _jenisObat.text.isEmpty ||
-                              _deskripsi.text.isEmpty) {
+                          if (_namaPenyakit.text.isEmpty ||
+                              _jenisPenyakit.text.isEmpty ||
+                              _deskripsi.text.isEmpty ||
+                              _selectedObat == null) {
                             displaySnackbar('Semua field harus diisi');
                             return;
                           }
-                          final postModel = ObatInput(
-                            jenisObat: _jenisObat.text,
-                            namaObat: _namaObat.text,
+                          final postModel = PenyakitInput(
+                            jenisPenyakit: _jenisPenyakit.text,
+                            namaPenyakit: _namaPenyakit.text,
                             deskripsi: _deskripsi.text,
-                            imagePath: _pathFile!,
-                            imageName: _namaFile!,
+                            namaObat: _selectedObat!,
                           );
-                          ObatResponse? res;
+                          PenyakitResponse? res;
                           if (isEdit) {
-                            res = await _dataService.putObat(idObat, postModel);
+                            res = await _dataService.putPenyakit(
+                                idPenyakit, postModel);
                           } else {
-                            res = await _dataService.postObat(postModel);
+                            res = await _dataService.postPenyakit(postModel);
                           }
 
                           setState(() {
-                            obatRes = res;
+                            penyakitRes = res;
                             isEdit = false;
                           });
-                          _namaObat.clear();
-                          _jenisObat.clear();
+                          _namaPenyakit.clear();
+                          _jenisPenyakit.clear();
                           _deskripsi.clear();
-                          await refreshObatList();
+                          _selectedObat = null;
+                          await refreshPenyakitList();
                         },
                         child: Text(isEdit ? 'UPDATE' : 'POST'),
                       ),
                       if (isEdit)
                         ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                          ),
                           onPressed: () {
-                            _namaObat.clear();
-                            _jenisObat.clear();
+                            _namaPenyakit.clear();
+                            _jenisPenyakit.clear();
                             _deskripsi.clear();
                             setState(() {
                               isEdit = false;
                             });
                           },
-                          child: const Text('Cancel Update',
-                              style: TextStyle(color: Colors.red)),
+                          child: const Text('Cancel Update'),
                         ),
                     ],
                   )
@@ -258,7 +308,7 @@ class _ObatScreenState extends State<ObatScreen> {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () async {
-                          await refreshObatList();
+                          await refreshPenyakitList();
                           setState(() {});
                         },
                         child: const Text('Refresh Data'),
@@ -269,8 +319,8 @@ class _ObatScreenState extends State<ObatScreen> {
                       onPressed: () {
                         setState(() {
                           _result = '-';
-                          _obatModel.clear();
-                          obatRes = null;
+                          _penyakitModel.clear();
+                          penyakitRes = null;
                         });
                       },
                       child: const Text('Reset'),
@@ -280,7 +330,7 @@ class _ObatScreenState extends State<ObatScreen> {
               ),
               const SizedBox(height: 8.0),
               const Text(
-                'List Obat',
+                'List Penyakit',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
@@ -288,7 +338,9 @@ class _ObatScreenState extends State<ObatScreen> {
               ),
               const SizedBox(height: 8.0),
               Expanded(
-                child: _obatModel.isEmpty ? Text(_result) : _buildListObat(),
+                child: _penyakitModel.isEmpty
+                    ? Text(_result)
+                    : _buildListPenyakit(),
               ),
               const SizedBox(
                 height: 20,
@@ -305,69 +357,31 @@ class _ObatScreenState extends State<ObatScreen> {
         .showSnackBar(SnackBar(content: Text(msg)));
   }
 
-  Widget buildFilePicker(BuildContext context) {
-    return TextField(
-      controller: TextEditingController(text: _namaFile),
-      readOnly: true,
-      onChanged: (value) {
-        setState(() {});
-      },
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 12,
-        ),
-        labelText: 'Gambar Obat',
-        hintText: 'Masukkan gambar obat',
-        suffixIcon: _namaFile != null
-            ? IconButton(
-                icon: const Icon(Icons.clear),
-                onPressed: () {
-                  setState(() {
-                    _namaFile = null;
-                  });
-                },
-              )
-            : IconButton(
-                icon: const Icon(Icons.attach_file),
-                onPressed: () async {
-                  _pickFile();
-                },
-              ),
-      ),
-    );
-  }
-
-  Widget _buildListObat() {
+  Widget _buildListPenyakit() {
     return ListView.separated(
         itemBuilder: (context, index) {
-          final obatList = _obatModel[index];
+          final penyakitList = _penyakitModel[index];
           return Card(
             child: ListTile(
-              leading: CachedNetworkImage(
-                imageUrl: obatList.gambar,
-                width: 50,
-                height: 50,
-                fit: BoxFit.cover,
-              ),
-              title: Text(obatList.namaObat),
+// leading: Text(user.id),
+              // title: Text(penyakitList.jenisPenyakit),
+              title: Text(penyakitList.namaPenyakit),
+
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton(
                     onPressed: () async {
-                      final obats =
-                          await _dataService.getSingleObat(obatList.id);
+                      final penyakits =
+                          await _dataService.getSinglePenyakit(penyakitList.id);
                       setState(() {
-                        if (obats != null) {
-                          _namaObat.text = obats.namaObat;
-                          _jenisObat.text = obats.jenisObat;
-                          _deskripsi.text = obats.deskripsi;
+                        if (penyakits != null) {
+                          _namaPenyakit.text = penyakits.namaPenyakit;
+                          _jenisPenyakit.text = penyakits.jenisPenyakit;
+                          _deskripsi.text = penyakits.deskripsi;
+                          _selectedObat = penyakits.namaObat;
                           isEdit = true;
-                          idObat = obats.id;
+                          idPenyakit = penyakits.id;
                         }
                       });
                     },
@@ -376,7 +390,7 @@ class _ObatScreenState extends State<ObatScreen> {
                   IconButton(
                     onPressed: () {
                       _showDeleteConfirmationDialog(
-                          obatList.id, obatList.namaObat);
+                          penyakitList.id, penyakitList.namaPenyakit);
                     },
                     icon: const Icon(Icons.delete),
                   ),
@@ -386,17 +400,17 @@ class _ObatScreenState extends State<ObatScreen> {
           );
         },
         separatorBuilder: (context, index) => const SizedBox(height: 10.0),
-        itemCount: _obatModel.length);
+        itemCount: _penyakitModel.length);
   }
 
   Widget hasilCard(BuildContext context) {
     return Column(children: [
-      if (obatRes != null)
-        ObatCard(
-          obatRes: obatRes!,
+      if (penyakitRes != null)
+        PenyakitCard(
+          penyakitRes: penyakitRes!,
           onDismissed: () {
             setState(() {
-              obatRes = null;
+              penyakitRes = null;
             });
           },
         )
@@ -421,12 +435,12 @@ class _ObatScreenState extends State<ObatScreen> {
             ),
             TextButton(
               onPressed: () async {
-                ObatResponse? res = await _dataService.deleteObat(id);
+                PenyakitResponse? res = await _dataService.deletePenyakit(id);
                 setState(() {
-                  obatRes = res;
+                  penyakitRes = res;
                 });
                 Navigator.of(context).pop();
-                await refreshObatList();
+                await refreshPenyakitList();
               },
               child: const Text('DELETE'),
             ),

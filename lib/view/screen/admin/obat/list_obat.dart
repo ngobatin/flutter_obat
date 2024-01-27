@@ -15,12 +15,15 @@ class _ListObatState extends State<ListObat> {
   List<ObatModel> obat = [];
 
   @override
+  @override
   void initState() {
     super.initState();
     _dataService.getAllObat().then((value) {
-      setState(() {
-        obat = value?.toList() ?? [];
-      });
+      if (mounted) {
+        setState(() {
+          obat = value?.toList() ?? [];
+        });
+      }
     });
   }
 
@@ -36,7 +39,7 @@ class _ListObatState extends State<ListObat> {
           ),
         ),
         iconTheme: const IconThemeData(color: Colors.white),
-        backgroundColor: Colors.blue.shade600,
+        backgroundColor: Colors.orange.shade800,
       ),
       body: Container(
         width: double.infinity,
@@ -44,7 +47,7 @@ class _ListObatState extends State<ListObat> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             const Center(
               child: Text(
                 "List Obat",
@@ -59,20 +62,24 @@ class _ListObatState extends State<ListObat> {
               child: ListView.builder(
                 itemCount: obat.length,
                 itemBuilder: (context, index) {
-                  return Card(
-                    child: ListTile(
-                      leading: CachedNetworkImage(
-                        imageUrl: obat[index].gambar,
-                        width: 50,
-                        height: 50,
-                        fit: BoxFit.cover,
-                      ),
-                      title: Text(obat[index].namaObat),
-                      trailing: ElevatedButton(
-                        onPressed: () {
-                          _showDetailsBottomSheet(context, obat[index]);
-                        },
-                        child: const Text('Details'),
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 7),
+                    child: Card(
+                      elevation: 10,
+                      child: ListTile(
+                        leading: CachedNetworkImage(
+                          imageUrl: obat[index].gambar,
+                          width: 50,
+                          height: 50,
+                          fit: BoxFit.fill,
+                        ),
+                        title: Text(obat[index].namaObat),
+                        trailing: ElevatedButton(
+                          onPressed: () {
+                            _showDetailsBottomSheet(context, obat[index]);
+                          },
+                          child: const Text('Details'),
+                        ),
                       ),
                     ),
                   );

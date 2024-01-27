@@ -9,6 +9,7 @@ class RSModel {
   final String latitude;
   final String longitude;
   final String gambar;
+  // final String namaObat;
 
   RSModel({
     required this.id,
@@ -18,6 +19,7 @@ class RSModel {
     required this.latitude,
     required this.longitude,
     required this.gambar,
+    // required this.namaObat,
   });
 
   factory RSModel.fromJson(Map<String, dynamic> json) => RSModel(
@@ -28,6 +30,7 @@ class RSModel {
         latitude: json["latitude"],
         longitude: json["longitude"],
         gambar: json["gambar"],
+        // namaObat: json["obat"]["nama_obat"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -38,6 +41,7 @@ class RSModel {
         "latitude": latitude,
         "longitude": longitude,
         "gambar": gambar,
+        // "nama_obat": namaObat,
       };
 }
 
@@ -50,6 +54,7 @@ class RSInput {
   final String longitude;
   final String imagePath;
   final String imageName;
+  // final String namaObat;
 
   RSInput({
     required this.namaRS,
@@ -59,6 +64,7 @@ class RSInput {
     required this.longitude,
     required this.imagePath,
     required this.imageName,
+    // required this.namaObat,
   });
 
   FormData formData() => FormData.fromMap({
@@ -68,6 +74,7 @@ class RSInput {
         "latitude": latitude,
         "longitude": longitude,
         "file": MultipartFile.fromFileSync(imagePath, filename: imageName),
+        // "nama_obat": namaObat,
       });
 }
 

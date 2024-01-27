@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_obat/view/widget/category.dart';
-import 'package:flutter_obat/view/screen/profile_screen.dart';
+import 'package:flutter_obat/view/screen/admin/list_user.dart';
 import 'package:flutter_obat/service/auth_manager.dart';
 import 'package:flutter_obat/view/screen/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,9 +37,9 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     },
     {
       "icon": "assets/icons/profile.svg",
-      "text": "Profile",
+      "text": "User",
       "data": "10",
-      "screen": const ProfileScreen()
+      "screen": const ListUser()
     },
   ];
 
@@ -75,7 +75,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             ),
           ),
           // centerTitle: true,
-          backgroundColor: Colors.blue.shade600,
+          iconTheme: const IconThemeData(color: Colors.white),
+          backgroundColor: Colors.orange.shade800,
           actions: [
             IconButton(
               onPressed: () {
@@ -93,34 +94,49 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: const EdgeInsets.all(2),
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
+                  color: Colors.red.shade300,
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.blue.withOpacity(0.3),
+                      color: Colors.grey.withOpacity(0.3),
                       spreadRadius: 2,
                       blurRadius: 5,
                       offset: const Offset(0, 3),
                     ),
                   ],
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Icon(Icons.account_circle_rounded),
-                      const SizedBox(width: 8.0),
-                      Text(
-                        'Login sebagai : $username',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const CircleAvatar(
+                      radius: 24,
+                      backgroundImage: AssetImage("assets/images/avatar.png"),
+                    ),
+                    const SizedBox(width: 16.0),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Hai, Welcome',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white70,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                        const SizedBox(height: 4),
+                        Text(
+                          username,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 25.0),
@@ -131,7 +147,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.blue.withOpacity(0.3),
+                      color: Colors.grey.withOpacity(0.3),
                       spreadRadius: 2,
                       blurRadius: 5,
                       offset: const Offset(0, 3),
@@ -160,7 +176,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.blue.withOpacity(0.3),
+                      color: Colors.grey.withOpacity(0.3),
                       spreadRadius: 2,
                       blurRadius: 5,
                       offset: const Offset(0, 3),

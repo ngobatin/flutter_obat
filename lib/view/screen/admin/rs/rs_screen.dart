@@ -125,8 +125,7 @@ class _RSScreenState extends State<RSScreen> {
           ),
         ),
         iconTheme: const IconThemeData(color: Colors.white),
-        // centerTitle: true,
-        backgroundColor: Colors.blue.shade600,
+        backgroundColor: Colors.orange.shade800,
       ),
       body: Container(
         width: double.infinity,

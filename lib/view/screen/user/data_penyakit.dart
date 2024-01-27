@@ -35,7 +35,7 @@ class _DataPenyakitState extends State<DataPenyakit> {
           ),
         ),
         iconTheme: const IconThemeData(color: Colors.white),
-        backgroundColor: Colors.blue.shade600,
+        backgroundColor: Colors.orange.shade800,
       ),
       body: Container(
         width: double.infinity,

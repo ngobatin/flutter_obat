@@ -15,15 +15,10 @@ class ApiRS {
         debugPrint(response.data.toString());
 
         var datas = json.decode(response.data);
-        if (datas['data'] is List) {
-          final rsList = (datas['data'] as List)
-              .map((rs) => RSModel.fromJson(rs))
-              .toList();
-          return rsList;
-        } else {
-          debugPrint('Unexpected data format in the response');
-          return null;
-        }
+
+        final rsList =
+            (datas['data'] as List).map((rs) => RSModel.fromJson(rs)).toList();
+        return rsList;
       }
       return null;
     } on DioException catch (e) {

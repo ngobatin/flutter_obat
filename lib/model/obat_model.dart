@@ -45,15 +45,16 @@ class ObatInput {
     required this.jenisObat,
     required this.namaObat,
     required this.deskripsi,
-    required this.imagePath,
-    required this.imageName,
+    this.imagePath = "",
+    this.imageName = "",
   });
 
   FormData formData() => FormData.fromMap({
         "jenis_obat": jenisObat,
         "nama_obat": namaObat,
         "deskripsi": deskripsi,
-        "file": MultipartFile.fromFileSync(imagePath, filename: imageName),
+        if (imagePath.isNotEmpty && imageName.isNotEmpty)
+          "file": MultipartFile.fromFileSync(imagePath, filename: imageName),
       });
 
   // Map<String, dynamic> toJson() => {

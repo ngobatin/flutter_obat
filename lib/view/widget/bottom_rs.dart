@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_obat/view/screen/rs/rs_screen.dart';
-import 'package:flutter_obat/view/screen/rs/list_rs.dart';
+import 'package:flutter_obat/view/screen/admin/rs/rs_screen.dart';
+import 'package:flutter_obat/view/screen/admin/rs/list_rs.dart';
 
 class DynamicBottomNavBarRS extends StatefulWidget {
   const DynamicBottomNavBarRS({super.key});
@@ -40,8 +40,8 @@ class _DynamicBottomNavBarRSState extends State<DynamicBottomNavBarRS> {
           ),
         ],
         backgroundColor: Colors.white,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.blue.shade600,
+        selectedItemColor: Colors.red.shade300,
+        unselectedItemColor: Colors.black,
       ),
     );
   }

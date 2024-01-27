@@ -17,9 +17,11 @@ class _ListPenyakitState extends State<ListPenyakit> {
   void initState() {
     super.initState();
     _dataService.getAllPenyakit().then((value) {
-      setState(() {
-        penyakit = value?.toList() ?? [];
-      });
+      if (mounted) {
+        setState(() {
+          penyakit = value?.toList() ?? [];
+        });
+      }
     });
   }
 
@@ -35,7 +37,7 @@ class _ListPenyakitState extends State<ListPenyakit> {
           ),
         ),
         iconTheme: const IconThemeData(color: Colors.white),
-        backgroundColor: Colors.blue.shade600,
+        backgroundColor: Colors.orange.shade800,
       ),
       body: Container(
         width: double.infinity,
@@ -43,7 +45,7 @@ class _ListPenyakitState extends State<ListPenyakit> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             const Center(
               child: Text(
                 "List Penyakit",
@@ -58,14 +60,18 @@ class _ListPenyakitState extends State<ListPenyakit> {
               child: ListView.builder(
                 itemCount: penyakit.length,
                 itemBuilder: (context, index) {
-                  return Card(
-                    child: ListTile(
-                      title: Text(penyakit[index].namaPenyakit),
-                      trailing: ElevatedButton(
-                        onPressed: () {
-                          _showDetailsBottomSheet(context, penyakit[index]);
-                        },
-                        child: const Text('Details'),
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 7),
+                    child: Card(
+                      elevation: 10,
+                      child: ListTile(
+                        title: Text(penyakit[index].namaPenyakit),
+                        trailing: ElevatedButton(
+                          onPressed: () {
+                            _showDetailsBottomSheet(context, penyakit[index]);
+                          },
+                          child: const Text('Details'),
+                        ),
                       ),
                     ),
                   );
@@ -206,7 +212,7 @@ class _ListPenyakitState extends State<ListPenyakit> {
                   ],
                 ),
                 child: Text(
-                  penyakitModel.obat.namaObat,
+                  penyakitModel.namaObat,
                   style: const TextStyle(
                     fontWeight: FontWeight.normal,
                   ),

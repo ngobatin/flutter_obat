@@ -100,7 +100,7 @@ class _IndexScreenState extends State<IndexScreen> {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
+                            backgroundColor: Colors.orange.shade900,
                           ),
                           child: const Text(
                             "Register",

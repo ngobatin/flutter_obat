@@ -20,8 +20,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         iconTheme: const IconThemeData(color: Colors.white),
-        // centerTitle: true,
-        backgroundColor: Colors.blue.shade600,
+        backgroundColor: Colors.orange.shade800,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

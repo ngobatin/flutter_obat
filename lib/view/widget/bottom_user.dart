@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_obat/view/screen/admin/category_screen.dart';
+import 'package:flutter_obat/view/screen/user/profile_user.dart';
 import 'package:flutter_obat/view/screen/about_screen.dart';
-import 'package:flutter_obat/view/screen/admin/profile_screen.dart';
+import 'package:flutter_obat/view/screen/user/dashboard_screen.dart';
 
-class DynamicBottomNavBar extends StatefulWidget {
-  const DynamicBottomNavBar({super.key});
+class DynamicBottomNavBarUser extends StatefulWidget {
+  const DynamicBottomNavBarUser({super.key});
 
   @override
-  State<DynamicBottomNavBar> createState() => _DynamicBottomNavBarState();
+  State<DynamicBottomNavBarUser> createState() =>
+      _DynamicBottomNavBarUserState();
 }
 
-class _DynamicBottomNavBarState extends State<DynamicBottomNavBar> {
+class _DynamicBottomNavBarUserState extends State<DynamicBottomNavBarUser> {
   int _currentPageIndex = 0;
 
   final List<Widget> _pages = <Widget>[
-    const CategoriesScreen(),
+    const DashboardScreen(),
     const MyShared(),
-    const ProfileScreen(),
+    const ProfileUserScreen(),
   ];
   void onTabTapped(int index) {
     setState(() {

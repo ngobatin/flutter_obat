@@ -4,7 +4,7 @@ import 'package:flutter_obat/service/auth_manager.dart';
 import 'package:flutter_obat/view/screen/register_screen.dart';
 import 'package:flutter_obat/view/widget/bottom.dart';
 import 'package:flutter_obat/model/user_model.dart';
-import 'package:flutter_obat/view/screen/user/dashboard_screen.dart';
+import 'package:flutter_obat/view/widget/bottom_user.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -19,6 +19,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  final String admin = 'admin';
+
   final ApiUser _dataService = ApiUser();
 
   @override
@@ -30,14 +32,25 @@ class _LoginScreenState extends State<LoginScreen> {
   void checkLogin() async {
     bool isLoggedIn = await AuthManager.isLoggedIn();
     if (isLoggedIn) {
-// ignore: use_build_context_synchronously
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const DynamicBottomNavBar(),
-        ),
-        (route) => false,
-      );
+      if (await AuthManager.isAdmin()) {
+        // ignore: use_build_context_synchronously
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const DynamicBottomNavBar(),
+          ),
+          (route) => false,
+        );
+      } else {
+        // ignore: use_build_context_synchronously
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const DynamicBottomNavBarUser(),
+          ),
+          (route) => false,
+        );
+      }
     }
   }
 
@@ -172,7 +185,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (res!.status == 200) {
                             await AuthManager.login(_usernameController.text);
                             if (_usernameController.text.toLowerCase() ==
-                                'admin') {
+                                admin) {
                               // ignore: use_build_context_synchronously
                               Navigator.pushAndRemoveUntil(
                                 context,
@@ -187,7 +200,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const DashboardScreen(),
+                                  builder: (context) =>
+                                      const DynamicBottomNavBarUser(),
                                 ),
                                 (route) => false,
                               );
@@ -214,9 +228,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       const Text(
                         'Belum punya akun? ',
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),
+                        style: TextStyle(fontSize: 15),
                       ),
                       GestureDetector(
                         onTap: () {
@@ -232,7 +244,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(
                             fontSize: 15.0,
                             fontWeight: FontWeight.bold,
-                            color: Colors.blue,
+                            color: Colors.orange,
                           ),
                         ),
                       ),

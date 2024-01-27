@@ -23,8 +23,8 @@ class _DashboardCardState extends State<DashboardCard> {
       child: GestureDetector(
         onTap: widget.press,
         child: SizedBox(
-          width: 165,
-          height: 150,
+          width: 155,
+          height: 145,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Stack(

@@ -15,15 +15,11 @@ class ApiPenyakit {
         debugPrint(response.data.toString());
 
         var datas = json.decode(response.data);
-        if (datas['data'] is List) {
-          final penyakitList = (datas['data'] as List)
-              .map((penyakit) => PenyakitModel.fromJson(penyakit))
-              .toList();
-          return penyakitList;
-        } else {
-          debugPrint('Unexpected data format in the response');
-          return null;
-        }
+
+        final penyakitList = (datas['data'] as List)
+            .map((penyakit) => PenyakitModel.fromJson(penyakit))
+            .toList();
+        return penyakitList;
       }
       return null;
     } on DioException catch (e) {
@@ -32,8 +28,8 @@ class ApiPenyakit {
         return null;
       }
       rethrow;
-    } catch (e) {
-      rethrow;
+      // } catch (e) {
+      //   rethrow;
     }
   }
 
@@ -61,7 +57,8 @@ class ApiPenyakit {
     try {
       final response = await dio.post(
         '$_baseUrl/penyakit',
-        data: penyakit.toJson(),
+        data: penyakit.formData(),
+        // data: penyakit.toJson(),
       );
       if (response.statusCode == 200) {
         return PenyakitResponse.fromJson(json.decode(response.data));
@@ -77,7 +74,7 @@ class ApiPenyakit {
     try {
       final response = await Dio().put(
         '$_baseUrl/penyakit?_id=$id',
-        data: penyakit.toJson(),
+        data: penyakit.formData(),
       );
       if (response.statusCode == 200) {
         return PenyakitResponse.fromJson(json.decode(response.data));

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_obat/view/screen/penyakit/penyakit_screen.dart';
-import 'package:flutter_obat/view/screen/penyakit/list_penyakit.dart';
+import 'package:flutter_obat/view/screen/admin/penyakit/penyakit_screen.dart';
+import 'package:flutter_obat/view/screen/admin/penyakit/list_penyakit.dart';
 
 class DynamicBottomNavBarPenyakit extends StatefulWidget {
   const DynamicBottomNavBarPenyakit({super.key});
@@ -42,8 +42,8 @@ class _DynamicBottomNavBarPenyakitState
           ),
         ],
         backgroundColor: Colors.white,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.blue.shade600,
+        selectedItemColor: Colors.red.shade300,
+        unselectedItemColor: Colors.black,
       ),
     );
   }

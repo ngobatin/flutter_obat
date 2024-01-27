@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_obat/model/rs_model.dart';
 import 'package:flutter_obat/service/api_rs.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ListRS extends StatefulWidget {
   const ListRS({super.key});
@@ -17,9 +18,11 @@ class _ListRSState extends State<ListRS> {
   void initState() {
     super.initState();
     _dataService.getAllRS().then((value) {
-      setState(() {
-        rs = value?.toList() ?? [];
-      });
+      if (mounted) {
+        setState(() {
+          rs = value?.toList() ?? [];
+        });
+      }
     });
   }
 
@@ -35,7 +38,7 @@ class _ListRSState extends State<ListRS> {
           ),
         ),
         iconTheme: const IconThemeData(color: Colors.white),
-        backgroundColor: Colors.blue.shade600,
+        backgroundColor: Colors.orange.shade800,
       ),
       body: Container(
         width: double.infinity,
@@ -43,7 +46,7 @@ class _ListRSState extends State<ListRS> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             const Center(
               child: Text(
                 "List RS",
@@ -58,14 +61,24 @@ class _ListRSState extends State<ListRS> {
               child: ListView.builder(
                 itemCount: rs.length,
                 itemBuilder: (context, index) {
-                  return Card(
-                    child: ListTile(
-                      title: Text(rs[index].namaRS),
-                      trailing: ElevatedButton(
-                        onPressed: () {
-                          _showDetailsBottomSheet(context, rs[index]);
-                        },
-                        child: const Text('Details'),
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 7),
+                    child: Card(
+                      elevation: 10,
+                      child: ListTile(
+                        leading: CachedNetworkImage(
+                          imageUrl: rs[index].gambar,
+                          width: 50,
+                          height: 50,
+                          fit: BoxFit.fill,
+                        ),
+                        title: Text(rs[index].namaRS),
+                        trailing: ElevatedButton(
+                          onPressed: () {
+                            _showDetailsBottomSheet(context, rs[index]);
+                          },
+                          child: const Text('Details'),
+                        ),
                       ),
                     ),
                   );

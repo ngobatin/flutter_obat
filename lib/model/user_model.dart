@@ -2,23 +2,27 @@
 class UserModel {
   final String id;
   final String username;
+  final String phoneNumber;
   final String password;
 
   UserModel({
     required this.id,
     required this.username,
+    required this.phoneNumber,
     required this.password,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         id: json["_id"],
         username: json["username"],
+        phoneNumber: json["phone_number"],
         password: json["password"],
       );
 
   Map<String, dynamic> toJson() => {
         "_id": id,
         "username": username,
+        "phone_number": phoneNumber,
         "password": password,
       };
 }
@@ -57,17 +61,20 @@ class LoginResponse {
 //DIGUNAKAN UNTUK FORM Register
 class RegisterInput {
   final String username;
+  final String phoneNumber;
   final String password;
   final String confirmPassword;
 
   RegisterInput({
     required this.username,
+    required this.phoneNumber,
     required this.password,
     required this.confirmPassword,
   });
 
   Map<String, dynamic> toJson() => {
         "username": username,
+        "phone_number": phoneNumber,
         "password": password,
         "confirm_password": confirmPassword,
       };

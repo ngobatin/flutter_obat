@@ -1,4 +1,4 @@
-import 'obat_model.dart';
+import 'package:dio/dio.dart';
 
 //DIGUNAKAN UNTUK GET ALL DATA
 class PenyakitModel {
@@ -6,21 +6,15 @@ class PenyakitModel {
   final String jenisPenyakit;
   final String namaPenyakit;
   final String deskripsi;
-  final ObatModel obat;
+  final String namaObat;
 
   PenyakitModel({
     required this.id,
     required this.jenisPenyakit,
     required this.namaPenyakit,
     required this.deskripsi,
-    required String namaObat,
-  }) : obat = ObatModel(
-          id: "",
-          jenisObat: "",
-          namaObat: namaObat,
-          deskripsi: "",
-          gambar: "",
-        );
+    required this.namaObat,
+  });
 
   factory PenyakitModel.fromJson(Map<String, dynamic> json) => PenyakitModel(
         id: json["_id"],
@@ -35,7 +29,7 @@ class PenyakitModel {
         "jenis_penyakit": jenisPenyakit,
         "nama_penyakit": namaPenyakit,
         "deskripsi": deskripsi,
-        "obat": obat.toJson(),
+        "nama_obat": namaObat,
       };
 }
 
@@ -44,27 +38,28 @@ class PenyakitInput {
   final String jenisPenyakit;
   final String namaPenyakit;
   final String deskripsi;
-  final ObatInput obat;
+  final String namaObat;
 
   PenyakitInput({
     required this.jenisPenyakit,
     required this.namaPenyakit,
     required this.deskripsi,
-    required String namaObat,
-  }) : obat = ObatInput(
-          jenisObat: "",
-          namaObat: namaObat,
-          deskripsi: "",
-          imagePath: "",
-          imageName: "",
-        );
+    required this.namaObat,
+  });
 
-  Map<String, dynamic> toJson() => {
+  FormData formData() => FormData.fromMap({
         "jenis_penyakit": jenisPenyakit,
         "nama_penyakit": namaPenyakit,
         "deskripsi": deskripsi,
-        "obat": obat.formData(),
-      };
+        "nama_obat": namaObat,
+      });
+
+  // Map<String, dynamic> toJson() => {
+  //       "jenis_penyakit": jenisPenyakit,
+  //       "nama_penyakit": namaPenyakit,
+  //       "deskripsi": deskripsi,
+  //       "obat": obat.formData(),
+  //     };
 }
 
 //DIGUNAKAN UNTUK RESPONSE

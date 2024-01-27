@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_obat/view/screen/obat/obat_screen.dart';
-import 'package:flutter_obat/view/screen/obat/list_obat.dart';
+import 'package:flutter_obat/view/screen/admin/obat/obat_screen.dart';
+import 'package:flutter_obat/view/screen/admin/obat/list_obat.dart';
 
 class DynamicBottomNavBarObat extends StatefulWidget {
   const DynamicBottomNavBarObat({super.key});
@@ -41,8 +41,8 @@ class _DynamicBottomNavBarObatState extends State<DynamicBottomNavBarObat> {
           ),
         ],
         backgroundColor: Colors.white,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.blue.shade600,
+        selectedItemColor: Colors.red.shade300,
+        unselectedItemColor: Colors.black,
       ),
     );
   }

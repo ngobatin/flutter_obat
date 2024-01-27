@@ -29,11 +29,23 @@ class AuthManager {
     return false;
   }
 
+  static Future<bool> isAdmin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? username = prefs.getString('username');
+    return username == 'admin';
+  }
+
   static Future<void> login(String username) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('loginStatusKey', true);
     prefs.setString('loginTimeKey', DateTime.now().toString());
     prefs.setString('username', username);
+  }
+
+  static Future<void> getUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.getString('username');
+    prefs.getString('phone_number');
   }
 
   static Future<void> logout() async {
