@@ -38,6 +38,27 @@ class _PenyakitScreenState extends State<PenyakitScreen> {
     super.dispose();
   }
 
+  String? _validatePenyakit(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Data Tidak boleh kosong';
+    }
+    if (!RegExp(r'^[A-Z]').hasMatch(value)) {
+      return 'Data harus diawali dengan huruf kapital';
+    }
+
+    if (!RegExp(r'^[a-zA-Z ]+$').hasMatch(value)) {
+      return 'Data hanya boleh mengandung huruf';
+    }
+    return null;
+  }
+
+  String? _validateNamaObat(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Pilih nama obat';
+    }
+    return null;
+  }
+
   Future<void> refreshPenyakitList() async {
     final users = await _dataService.getAllPenyakit();
     setState(() {
@@ -87,8 +108,9 @@ class _PenyakitScreenState extends State<PenyakitScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20.0),
-              TextField(
+              TextFormField(
                 controller: _jenisPenyakit,
+                validator: _validatePenyakit,
                 onChanged: (value) {
                   setState(() {});
                 },
@@ -115,9 +137,10 @@ class _PenyakitScreenState extends State<PenyakitScreen> {
                 ),
               ),
               const SizedBox(height: 8.0),
-              TextField(
+              TextFormField(
                 controller: _namaPenyakit,
-                 onChanged: (value) {
+                validator: _validatePenyakit,
+                onChanged: (value) {
                   setState(() {});
                 },
                 decoration: InputDecoration(
@@ -143,10 +166,11 @@ class _PenyakitScreenState extends State<PenyakitScreen> {
                 ),
               ),
               const SizedBox(height: 8.0),
-              TextField(
+              TextFormField(
                 controller: _deskripsi,
+                validator: _validatePenyakit,
                 maxLines: 3,
-                 onChanged: (value) {
+                onChanged: (value) {
                   setState(() {});
                 },
                 decoration: InputDecoration(
@@ -174,6 +198,7 @@ class _PenyakitScreenState extends State<PenyakitScreen> {
               const SizedBox(height: 8.0),
               DropdownButtonFormField2<String>(
                 value: _selectedObat,
+                validator: _validateNamaObat,
                 isExpanded: true,
                 onChanged: (String? newValue) {
                   setState(() {

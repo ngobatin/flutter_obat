@@ -202,7 +202,7 @@ class _DataRSState extends State<DataRS> {
                   ],
                 ),
                 child: Text(
-                  rsModel.latitude,
+                  rsModel.latitude.toString(),
                   style: const TextStyle(
                     fontWeight: FontWeight.normal,
                   ),
@@ -231,7 +231,7 @@ class _DataRSState extends State<DataRS> {
                   ],
                 ),
                 child: Text(
-                  rsModel.longitude,
+                  rsModel.longitude.toString(),
                   style: const TextStyle(
                     fontWeight: FontWeight.normal,
                   ),

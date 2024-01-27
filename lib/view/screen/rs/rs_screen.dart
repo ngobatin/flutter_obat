@@ -42,6 +42,57 @@ class _RSScreenState extends State<RSScreen> {
     super.dispose();
   }
 
+  String? _validateRS(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Data tidak boleh kosong';
+    }
+    if (!RegExp(r'^[A-Z]').hasMatch(value)) {
+      return 'Data harus diawali dengan huruf kapital';
+    }
+
+    if (!RegExp(r'^[a-zA-Z ]+$').hasMatch(value)) {
+      return 'Data hanya boleh mengandung huruf';
+    }
+    return null;
+  }
+
+  String? _validateTelepon(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Nomor telepon tidak boleh kosong';
+    }
+    if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+      return 'Nomor telepon hanya boleh mengandung karakter angka';
+    }
+
+    String cleanedValue = value.replaceAll(RegExp(r'\D'), '');
+
+    if (!cleanedValue.startsWith('0')) {
+      return 'Nomor telepon harus diawali dengan 0';
+    }
+    if (cleanedValue.length < 8) {
+      return 'Nomor telepon minimal 8 karakter';
+    }
+    if (cleanedValue.length > 13) {
+      return 'Nomor telepon maksimal 13 karakter';
+    }
+    return null;
+  }
+
+  String? _validateCoordinate(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Titik koordinat tidak boleh kosong';
+    }
+    double? latitude = double.tryParse(value);
+    if (latitude == null || latitude < -90.0 || latitude > 90.0) {
+      return 'Latitude tidak valid';
+    }
+    double? longitude = double.tryParse(value);
+    if (longitude == null || longitude < -180.0 || longitude > 180.0) {
+      return 'Longitude tidak valid';
+    }
+    return null;
+  }
+
   void _pickFile() async {
     final result = await FilePicker.platform.pickFiles();
     if (result == null) return;
@@ -86,8 +137,9 @@ class _RSScreenState extends State<RSScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20.0),
-              TextField(
+              TextFormField(
                 controller: _namaRS,
+                validator: _validateRS,
                 onChanged: (value) {
                   setState(() {});
                 },
@@ -114,8 +166,9 @@ class _RSScreenState extends State<RSScreen> {
                 ),
               ),
               const SizedBox(height: 8.0),
-              TextField(
+              TextFormField(
                 controller: _noTelp,
+                validator: _validateTelepon,
                 onChanged: (value) {
                   setState(() {});
                 },
@@ -143,8 +196,9 @@ class _RSScreenState extends State<RSScreen> {
                 ),
               ),
               const SizedBox(height: 8.0),
-              TextField(
+              TextFormField(
                 controller: _alamat,
+                validator: _validateRS,
                 onChanged: (value) {
                   setState(() {});
                 },
@@ -176,7 +230,8 @@ class _RSScreenState extends State<RSScreen> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(right: 5.0),
-                      child: TextField(
+                      child: TextFormField(
+                        validator: _validateCoordinate,
                         controller: _lat,
                         onChanged: (value) {
                           setState(() {});
@@ -209,7 +264,8 @@ class _RSScreenState extends State<RSScreen> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(left: 5.0),
-                      child: TextField(
+                      child: TextFormField(
+                        validator: _validateCoordinate,
                         controller: _long,
                         onChanged: (value) {
                           setState(() {});
@@ -265,8 +321,8 @@ class _RSScreenState extends State<RSScreen> {
                             namaRS: _namaRS.text,
                             noTelp: _noTelp.text,
                             alamat: _alamat.text,
-                            latitude: _lat.text,
-                            longitude: _long.text,
+                            latitude: double.parse(_lat.text),
+                            longitude: double.parse(_long.text),
                             imagePath: _pathFile!,
                             imageName: _namaFile!,
                           );
@@ -364,7 +420,7 @@ class _RSScreenState extends State<RSScreen> {
   }
 
   Widget buildFilePicker(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: TextEditingController(text: _namaFile),
       readOnly: true,
       onChanged: (value) {
@@ -420,8 +476,8 @@ class _RSScreenState extends State<RSScreen> {
                           _namaRS.text = rss.namaRS;
                           _noTelp.text = rss.noTelp;
                           _alamat.text = rss.alamat;
-                          _lat.text = rss.latitude;
-                          _long.text = rss.longitude;
+                          _lat.text = rss.latitude.toString();
+                          _long.text = rss.longitude.toString();
                           isEdit = true;
                           idRS = rss.id;
                         }

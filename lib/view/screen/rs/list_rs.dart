@@ -207,7 +207,7 @@ class _ListRSState extends State<ListRS> {
                       ],
                     ),
                     child: Text(
-                      rsModel.latitude,
+                      rsModel.latitude.toString(),
                       style: const TextStyle(
                         fontWeight: FontWeight.normal,
                       ),
@@ -236,7 +236,7 @@ class _ListRSState extends State<ListRS> {
                       ],
                     ),
                     child: Text(
-                      rsModel.longitude,
+                      rsModel.longitude.toString(),
                       style: const TextStyle(
                         fontWeight: FontWeight.normal,
                       ),
