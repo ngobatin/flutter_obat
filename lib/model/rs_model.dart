@@ -6,8 +6,8 @@ class RSModel {
   final String namaRS;
   final String noTelp;
   final String alamat;
-  final String latitude;
-  final String longitude;
+  final double latitude;
+  final double longitude;
   final String gambar;
 
   RSModel({
@@ -46,8 +46,8 @@ class RSInput {
   final String namaRS;
   final String noTelp;
   final String alamat;
-  final String latitude;
-  final String longitude;
+  final double latitude;
+  final double longitude;
   final String imagePath;
   final String imageName;
 

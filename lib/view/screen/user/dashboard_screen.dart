@@ -37,7 +37,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Health Dashboard'),
+        title: const Text(
+          "Psikofarmaka",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        iconTheme: const IconThemeData(color: Colors.white),
+        // centerTitle: true,
+        backgroundColor: Colors.blue.shade600,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),

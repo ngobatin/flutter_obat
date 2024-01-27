@@ -39,6 +39,20 @@ class _ObatScreenState extends State<ObatScreen> {
     super.dispose();
   }
 
+  String? _validateObat(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Data tidak boleh kosong';
+    }
+    if (!RegExp(r'^[A-Z]').hasMatch(value)) {
+      return 'Data harus diawali dengan huruf kapital';
+    }
+
+    if (!RegExp(r'^[a-zA-Z ]+$').hasMatch(value)) {
+      return 'Data hanya boleh mengandung huruf';
+    }
+    return null;
+  }
+
   bool _validateFile(String? pathFile) {
     if (pathFile == null) {
       return true;
@@ -90,8 +104,9 @@ class _ObatScreenState extends State<ObatScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20.0),
-              TextField(
+              TextFormField(
                 controller: _jenisObat,
+                validator: _validateObat,
                 onChanged: (value) {
                   setState(() {});
                 },
@@ -118,8 +133,9 @@ class _ObatScreenState extends State<ObatScreen> {
                 ),
               ),
               const SizedBox(height: 8.0),
-              TextField(
+              TextFormField(
                 controller: _namaObat,
+                validator: _validateObat,
                 onChanged: (value) {
                   setState(() {});
                 },
@@ -146,8 +162,9 @@ class _ObatScreenState extends State<ObatScreen> {
                 ),
               ),
               const SizedBox(height: 8.0),
-              TextField(
+              TextFormField(
                 controller: _deskripsi,
+                validator: _validateObat,
                 maxLines: 3,
                 onChanged: (value) {
                   setState(() {});

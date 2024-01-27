@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_obat/service/auth_manager.dart';
 import 'package:flutter_obat/view/widget/bottom.dart';
 import 'package:flutter_obat/model/login_model.dart';
+import 'package:flutter_obat/view/screen/user/dashboard_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -47,15 +48,21 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   String? _validateUsername(String? value) {
-    if (value != null && value.length < 4) {
-      return 'Masukkan minimal 4 karakter';
+    if (value == null || value.isEmpty) {
+      return 'Username tidak boleh kosong';
+    }
+    if (value.length < 5) {
+      return 'Masukkan minimal 5 karakter';
     }
     return null;
   }
 
   String? _validatePassword(String? value) {
-    if (value != null && value.length < 3) {
-      return 'Masukkan minimal 3 karakter';
+    if (value == null || value.isEmpty) {
+      return 'Password tidak boleh kosong';
+    }
+    if (value.length < 5) {
+      return 'Masukkan minimal 5 karakter';
     }
     return null;
   }
@@ -163,15 +170,27 @@ class _LoginScreenState extends State<LoginScreen> {
                               await _dataService.login(postModel);
                           if (res!.status == 200) {
                             await AuthManager.login(_usernameController.text);
-// ignore: use_build_context_synchronously
-                            Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const DynamicBottomNavBar(),
-                              ),
-                              (route) => false,
-                            );
+                            if (_usernameController.text.toLowerCase() ==
+                                'admin') {
+                              // ignore: use_build_context_synchronously
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const DynamicBottomNavBar(),
+                                ),
+                                (route) => false,
+                              );
+                            } else {
+                              // ignore: use_build_context_synchronously
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const DashboardScreen(),
+                                ),
+                                (route) => false,
+                              );
+                            }
                           } else {
                             displaySnackbar(res.message);
                           }
