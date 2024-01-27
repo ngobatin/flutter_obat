@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Obat',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue.shade900),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange.shade800),
         useMaterial3: true,
         // primarySwatch: Colors.orange,
         // useMaterial3: false,

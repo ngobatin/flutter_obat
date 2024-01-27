@@ -25,8 +25,15 @@ class _MySharedState extends State<MyShared> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Psikofarmaka'),
-        backgroundColor: Colors.orange.shade900,
+        title: const Text(
+          "Psikofarmaka",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: Colors.orange.shade800,
       ),
       body: Container(
         margin: const EdgeInsets.all(16),
@@ -39,19 +46,19 @@ class _MySharedState extends State<MyShared> {
                 const SizedBox(height: 16),
                 _buildCard(
                   'About Application',
-                  'Aplikasi Psikofarmaka adalah platform yang menyediakan solusi komprehensif untuk administrasi data obat, penyakit, dan rumah sakit.Aplikasi ini memberikan pengalaman pengguna yang baik, mendukung tugas administratif, dan menyediakan akses yang mudah ke data kesehatan.',
+                  'Aplikasi Psikofarmaka adalah platform yang menyediakan solusi komprehensif untuk administrasi data obat, penyakit, dan rumah sakit. Aplikasi ini memberikan pengalaman pengguna yang baik, mendukung tugas administratif, dan menyediakan akses yang mudah ke data kesehatan.',
                   Icons.info_outline,
-                  Colors.blue.shade700,
+                  Colors.indigo.shade300,
                 ),
                 const SizedBox(height: 16),
                 _buildCard(
                   'Purpose of Application',
                   '1. Memberikan solusi untuk admin dalam melakukan tugas CRUD terkait obat, penyakit, dan rumah sakit, sehingga memperoleh manajemen data yang efisien.\n'
                       '2. Menyediakan akses yang mudah bagi pengguna untuk melihat informasi terkait obat, penyakit, dan rumah sakit, mendukung pemahaman yang lebih baik tentang kesehatan.\n'
-                      '3. Memungkinkan admin untuk dengan mudah menambah, memperbarui, dan mengahpus data obat, penyakit, dan rumah sakit, meningkatkan produktivitas dalam administrasi informasi kesehatan.\n'
+                      '3. Memungkinkan admin untuk dengan mudah menambah, memperbarui, dan menghapus data obat, penyakit, dan rumah sakit, meningkatkan produktivitas dalam administrasi informasi kesehatan.\n'
                       '4. Menyelenggarakan sistem keamanan yang terintegrasi untuk memastikan bahwa hanya admin yang memiliki hak akses penuh terhadap fungsi CRUD, sementara pengguna hanya dapat melihat data yang tersedia.',
                   Icons.assignment,
-                  Colors.green.shade700,
+                  Colors.teal.shade300,
                 ),
                 const SizedBox(height: 16),
               ],
@@ -75,11 +82,12 @@ class _MySharedState extends State<MyShared> {
         boxShadow: [
           BoxShadow(
             color: Colors.grey.shade300,
-            blurRadius: 5,
-            offset: Offset(0, 3),
+            blurRadius: 10,
+            offset: Offset(0, 5),
           ),
         ],
       ),
+      margin: const EdgeInsets.only(bottom: 16),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -89,7 +97,7 @@ class _MySharedState extends State<MyShared> {
               children: [
                 Icon(
                   iconData,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
                 const SizedBox(width: 8),
                 Text(
@@ -97,7 +105,7 @@ class _MySharedState extends State<MyShared> {
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                 ),
               ],
