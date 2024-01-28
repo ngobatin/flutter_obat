@@ -19,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  bool isLoading = false;
   final String admin = 'admin';
 
   final ApiUser _dataService = ApiUser();
@@ -173,52 +174,79 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () async {
-                        final isValidForm = _formKey.currentState!.validate();
-                        if (isValidForm) {
-                          final postModel = LoginInput(
-                            username: _usernameController.text,
-                            password: _passwordController.text,
-                          );
-                          LoginResponse? res =
-                              await _dataService.login(postModel);
-                          if (res!.status == 200) {
-                            await AuthManager.login(_usernameController.text);
-                            if (_usernameController.text.toLowerCase() ==
-                                admin) {
-                              // ignore: use_build_context_synchronously
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const DynamicBottomNavBar(),
-                                ),
-                                (route) => false,
-                              );
-                            } else {
-                              // ignore: use_build_context_synchronously
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const DynamicBottomNavBarUser(),
-                                ),
-                                (route) => false,
-                              );
-                            }
-                          } else {
-                            displaySnackbar(res.message);
-                          }
-                        }
-                      },
+                      onPressed: isLoading
+                          ? null
+                          : () async {
+                              setState(() {
+                                isLoading = true;
+                              });
+                              final isValidForm =
+                                  _formKey.currentState!.validate();
+                              if (isValidForm) {
+                                final postModel = LoginInput(
+                                  username: _usernameController.text,
+                                  password: _passwordController.text,
+                                );
+                                LoginResponse? res =
+                                    await _dataService.login(postModel);
+                                if (res!.status == 200) {
+                                  await AuthManager.login(
+                                      _usernameController.text);
+                                  if (_usernameController.text.toLowerCase() ==
+                                      admin) {
+                                    // ignore: use_build_context_synchronously
+                                    Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const DynamicBottomNavBar(),
+                                      ),
+                                      (route) => false,
+                                    );
+                                  } else {
+                                    // ignore: use_build_context_synchronously
+                                    Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const DynamicBottomNavBarUser(),
+                                      ),
+                                      (route) => false,
+                                    );
+                                  }
+                                } else {
+                                  displaySnackbar(res.message);
+                                }
+                                setState(() {
+                                  isLoading = false;
+                                });
+                              }
+                            },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.orange.shade900,
                       ),
-                      child: const Text(
-                        "Login",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          const Text(
+                            "Login",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          if (isLoading)
+                            const Positioned(
+                              right: 8,
+                              child: SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  color: Colors.orange,
+                                  strokeWidth: 4,
+                                ),
+                              ),
+                            ),
+                        ],
                       ),
                     ),
                   ),

@@ -31,108 +31,114 @@ class _IndexScreenState extends State<IndexScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SizedBox(
-        width: double.infinity,
-        child: SafeArea(
-          child: Column(
-            children: <Widget>[
-              const SizedBox(height: 60),
-              const Text(
-                "Psikofarmaka",
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: PageView.builder(
-                  onPageChanged: (value) {
-                    setState(() {
-                      currentPage = value;
-                    });
-                  },
-                  itemCount: indexData.length,
-                  itemBuilder: (context, index) => IndexContent(
-                    text: indexData[index]['text'],
-                    image: indexData[index]["image"],
+    final noFocusNode = FocusNode();
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(noFocusNode);
+      },
+      child: Scaffold(
+        body: SizedBox(
+          width: double.infinity,
+          child: SafeArea(
+            child: Column(
+              children: <Widget>[
+                const SizedBox(height: 60),
+                const Text(
+                  "Psikofarmaka",
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    children: <Widget>[
-                      const Spacer(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(
-                          indexData.length,
-                          (index) => AnimatedContainer(
-                            duration: const Duration(milliseconds: 200),
-                            margin: const EdgeInsets.only(right: 5),
-                            height: 6,
-                            width: currentPage == index ? 20 : 6,
-                            decoration: BoxDecoration(
-                              color: currentPage == index
-                                  ? Colors.blue
-                                  : Colors.grey,
-                              borderRadius: BorderRadius.circular(3),
+                Expanded(
+                  flex: 3,
+                  child: PageView.builder(
+                    onPageChanged: (value) {
+                      setState(() {
+                        currentPage = value;
+                      });
+                    },
+                    itemCount: indexData.length,
+                    itemBuilder: (context, index) => IndexContent(
+                      text: indexData[index]['text'],
+                      image: indexData[index]["image"],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      children: <Widget>[
+                        const Spacer(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(
+                            indexData.length,
+                            (index) => AnimatedContainer(
+                              duration: const Duration(milliseconds: 200),
+                              margin: const EdgeInsets.only(right: 5),
+                              height: 6,
+                              width: currentPage == index ? 20 : 6,
+                              decoration: BoxDecoration(
+                                color: currentPage == index
+                                    ? Colors.blue
+                                    : Colors.grey,
+                                borderRadius: BorderRadius.circular(3),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      const Spacer(flex: 3),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const RegisterScreen(),
-                                // builder: (context) =>
-                                //     const DynamicBottomNavBar(),
+                        const Spacer(flex: 3),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const RegisterScreen(),
+                                  // builder: (context) =>
+                                  //     const DynamicBottomNavBar(),
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.orange.shade900,
+                            ),
+                            child: const Text(
+                              "Register",
+                              style: TextStyle(
+                                color: Colors.white,
                               ),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.orange.shade900,
-                          ),
-                          child: const Text(
-                            "Register",
-                            style: TextStyle(
-                              color: Colors.white,
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 20),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const LoginScreen(),
-                                // builder: (context) =>
-                                //     const DynamicBottomNavBar(),
-                              ),
-                            );
-                          },
-                          child: const Text("Login"),
+                        const SizedBox(height: 20),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginScreen(),
+                                  // builder: (context) =>
+                                  //     const DynamicBottomNavBar(),
+                                ),
+                              );
+                            },
+                            child: const Text("Login"),
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 60),
-                    ],
+                        const SizedBox(height: 60),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

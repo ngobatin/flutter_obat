@@ -61,9 +61,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final noFocusNode = FocusNode();
     return GestureDetector(
       onTap: () {
-        FocusScope.of(context).unfocus();
+        FocusScope.of(context).requestFocus(noFocusNode);
       },
       child: Scaffold(
         appBar: AppBar(
