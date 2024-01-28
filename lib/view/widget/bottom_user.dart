@@ -38,11 +38,11 @@ class _DynamicBottomNavBarUserState extends State<DynamicBottomNavBarUser> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.last_page_rounded),
+            icon: Icon(Icons.assignment_outlined),
             label: 'About',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
+            icon: Icon(Icons.account_circle_outlined),
             label: 'Profile',
           ),
         ],

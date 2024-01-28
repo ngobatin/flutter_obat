@@ -36,10 +36,10 @@ class _DynamicBottomNavBarState extends State<DynamicBottomNavBar> {
             icon: Icon(Icons.home),
             label: 'Home',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.last_page_rounded),
-            label: 'About',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.last_page_rounded),
+          //   label: 'About',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
             label: 'Profile',

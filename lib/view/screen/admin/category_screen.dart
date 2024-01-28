@@ -220,16 +220,16 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           title: const Text('Konfirmasi Logout'),
           content: const Text('Anda yakin ingin logout?'),
           actions: <Widget>[
-            TextButton(
+            TextButton.icon(
               onPressed: () {
                 Navigator.of(dialogContext).pop();
               },
-              child: const Text('Tidak'),
+              icon: Icon(Icons.cancel, color: Colors.red),
+              label: const Text('Tidak', style: TextStyle(color: Colors.red)),
             ),
-            TextButton(
+            TextButton.icon(
               onPressed: () async {
                 await AuthManager.logout();
-// ignore: use_build_context_synchronously
                 Navigator.pushAndRemoveUntil(
                   dialogContext,
                   MaterialPageRoute(
@@ -238,7 +238,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   (Route<dynamic> route) => false,
                 );
               },
-              child: const Text('Ya'),
+              icon: Icon(Icons.check, color: Colors.green),
+              label: const Text('Ya', style: TextStyle(color: Colors.green)),
             ),
           ],
         );

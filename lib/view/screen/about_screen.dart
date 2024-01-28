@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_obat/view/screen/admin/profile_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyShared extends StatefulWidget {
@@ -61,6 +62,7 @@ class _MySharedState extends State<MyShared> {
                   Colors.teal.shade300,
                 ),
                 const SizedBox(height: 16),
+                _buildProfileCard(context),
               ],
             ),
           ),
@@ -119,6 +121,52 @@ class _MySharedState extends State<MyShared> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProfileCard(BuildContext context) {
+    return Hero(
+      tag: 'profileHero',
+      child: Material(
+        color: Colors.transparent,
+        child: Card(
+          elevation: 5,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          margin: const EdgeInsets.only(bottom: 16),
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProfileScreen(),
+                ),
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.person,
+                    color: Colors.indigo.shade400,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Developer Profile',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.indigo.shade400,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );

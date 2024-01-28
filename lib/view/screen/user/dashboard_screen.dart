@@ -57,15 +57,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
+          title: Text(
             "Psikofarmaka",
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.white,
+              fontFamily: 'YourCustomFont', // Replace with your custom font
             ),
           ),
           iconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: Colors.orange.shade800,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.orange.shade800, Colors.orange.shade600],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+          ),
           actions: [
             IconButton(
               onPressed: () {
@@ -89,8 +99,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.white.withOpacity(0.3),
-                      spreadRadius: 2,
+                      color: Colors.black.withOpacity(0.2),
                       blurRadius: 5,
                       offset: const Offset(0, 3),
                     ),
@@ -164,21 +173,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: List.generate(
                           categories.length,
-                          (index) => DashboardCard(
-                            image: categories[index]['image'],
-                            text: categories[index]['text'],
-                            press: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      categories[index]['screen'],
-                                ),
-                              );
-                            },
+                          (index) => Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: DashboardCard(
+                              image: categories[index]['image'],
+                              text: categories[index]['text'],
+                              press: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        categories[index]['screen'],
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ),
@@ -201,13 +212,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
           title: const Text('Konfirmasi Logout'),
           content: const Text('Anda yakin ingin logout?'),
           actions: <Widget>[
-            TextButton(
+            TextButton.icon(
               onPressed: () {
                 Navigator.of(dialogContext).pop();
               },
-              child: const Text('Tidak'),
+              icon: Icon(Icons.cancel, color: Colors.red),
+              label: const Text('Tidak', style: TextStyle(color: Colors.red)),
             ),
-            TextButton(
+            TextButton.icon(
               onPressed: () async {
                 await AuthManager.logout();
                 Navigator.pushAndRemoveUntil(
@@ -218,7 +230,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   (Route<dynamic> route) => false,
                 );
               },
-              child: const Text('Ya'),
+              icon: Icon(Icons.check, color: Colors.green),
+              label: const Text('Ya', style: TextStyle(color: Colors.green)),
             ),
           ],
         );
