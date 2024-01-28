@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_obat/view/screen/admin/category_screen.dart';
-import 'package:flutter_obat/view/screen/about_screen.dart';
 import 'package:flutter_obat/view/screen/admin/profile_screen.dart';
 
 class DynamicBottomNavBar extends StatefulWidget {
@@ -15,7 +14,6 @@ class _DynamicBottomNavBarState extends State<DynamicBottomNavBar> {
 
   final List<Widget> _pages = <Widget>[
     const CategoriesScreen(),
-    const MyShared(),
     const ProfileScreen(),
   ];
   void onTabTapped(int index) {

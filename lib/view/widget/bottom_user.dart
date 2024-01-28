@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_obat/view/screen/admin/profile_screen.dart';
 import 'package:flutter_obat/view/screen/user/profile_user.dart';
 import 'package:flutter_obat/view/screen/about_screen.dart';
 import 'package:flutter_obat/view/screen/user/dashboard_screen.dart';
@@ -17,7 +18,7 @@ class _DynamicBottomNavBarUserState extends State<DynamicBottomNavBarUser> {
   final List<Widget> _pages = <Widget>[
     const DashboardScreen(),
     const MyShared(),
-    const ProfileUserScreen(),
+    const ProfileScreen(),
   ];
   void onTabTapped(int index) {
     setState(() {

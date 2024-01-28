@@ -61,8 +61,6 @@ class _MySharedState extends State<MyShared> {
                   Icons.assignment,
                   Colors.teal.shade300,
                 ),
-                const SizedBox(height: 16),
-                _buildProfileCard(context),
               ],
             ),
           ),
@@ -121,52 +119,6 @@ class _MySharedState extends State<MyShared> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildProfileCard(BuildContext context) {
-    return Hero(
-      tag: 'profileHero',
-      child: Material(
-        color: Colors.transparent,
-        child: Card(
-          elevation: 5,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          margin: const EdgeInsets.only(bottom: 16),
-          child: InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ProfileScreen(),
-                ),
-              );
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.person,
-                    color: Colors.indigo.shade400,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    'Developer Profile',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.indigo.shade400,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
         ),
       ),
     );
