@@ -18,9 +18,11 @@ class _DataObatState extends State<DataObat> {
   void initState() {
     super.initState();
     _dataService.getAllObat().then((value) {
-      setState(() {
-        obat = value?.toList() ?? [];
-      });
+      if (mounted) {
+        setState(() {
+          obat = value?.toList() ?? [];
+        });
+      }
     });
   }
 
@@ -50,19 +52,27 @@ class _DataObatState extends State<DataObat> {
                 itemCount: obat.length,
                 itemBuilder: (context, index) {
                   return Card(
-                    child: ListTile(
-                      leading: CachedNetworkImage(
-                        imageUrl: obat[index].gambar,
-                        width: 50,
-                        height: 50,
-                        fit: BoxFit.cover,
-                      ),
-                      title: Text(obat[index].namaObat),
-                      trailing: ElevatedButton(
-                        onPressed: () {
-                          _showDetailsBottomSheet(context, obat[index]);
-                        },
-                        child: const Text('Details'),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        leading: CachedNetworkImage(
+                          imageUrl: obat[index].gambar,
+                          width: 50,
+                          height: 50,
+                        ),
+                        title: Text(
+                          obat[index].namaObat,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        trailing: ElevatedButton(
+                          onPressed: () {
+                            _showDetailsBottomSheet(context, obat[index]);
+                          },
+                          child: const Text('Details'),
+                        ),
                       ),
                     ),
                   );

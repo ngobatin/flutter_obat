@@ -341,6 +341,8 @@ class _RSScreenState extends State<RSScreen> {
                           _alamat.clear();
                           _lat.clear();
                           _long.clear();
+                          _namaFile = null;
+                          _pathFile = null;
                           await refreshRSList();
                         },
                         child: Text(isEdit ? 'UPDATE' : 'POST'),

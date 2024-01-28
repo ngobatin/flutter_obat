@@ -229,6 +229,8 @@ class _ObatScreenState extends State<ObatScreen> {
                           _namaObat.clear();
                           _jenisObat.clear();
                           _deskripsi.clear();
+                          _namaFile = null;
+                          _pathFile = null;
                           await refreshObatList();
                         },
                         child: Text(isEdit ? 'UPDATE' : 'POST'),

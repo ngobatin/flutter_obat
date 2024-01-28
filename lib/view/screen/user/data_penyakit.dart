@@ -17,9 +17,11 @@ class _DataPenyakitState extends State<DataPenyakit> {
   void initState() {
     super.initState();
     _dataService.getAllPenyakit().then((value) {
-      setState(() {
-        penyakit = value?.toList() ?? [];
-      });
+      if (mounted) {
+        setState(() {
+          penyakit = value?.toList() ?? [];
+        });
+      }
     });
   }
 
@@ -50,7 +52,12 @@ class _DataPenyakitState extends State<DataPenyakit> {
                 itemBuilder: (context, index) {
                   return Card(
                     child: ListTile(
-                      title: Text(penyakit[index].namaPenyakit),
+                      title: Text(
+                        penyakit[index].namaPenyakit,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       trailing: ElevatedButton(
                         onPressed: () {
                           _showDetailsBottomSheet(context, penyakit[index]);

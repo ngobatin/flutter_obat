@@ -33,26 +33,6 @@ class ApiUser {
     }
   }
 
-  Future<UserModel?> getSingleUser(String id) async {
-    try {
-      var response = await dio.get('$_baseUrl/user?_id=$id');
-      if (response.statusCode == 200) {
-        debugPrint('respon: ${response.data}');
-        final data = json.decode(response.data);
-        return UserModel.fromJson(data['data']);
-      }
-      return null;
-    } on DioException catch (e) {
-      if (e.response != null && e.response!.statusCode != 200) {
-        debugPrint('Client error - the request cannot be fulfilled');
-        return null;
-      }
-      rethrow;
-    } catch (e) {
-      rethrow;
-    }
-  }
-
   Future<LoginResponse?> login(LoginInput login) async {
     try {
       final response = await dio.post(

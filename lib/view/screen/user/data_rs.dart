@@ -18,9 +18,11 @@ class _DataRSState extends State<DataRS> {
   void initState() {
     super.initState();
     _dataService.getAllRS().then((value) {
-      setState(() {
-        rs = value?.toList() ?? [];
-      });
+      if (mounted) {
+        setState(() {
+          rs = value?.toList() ?? [];
+        });
+      }
     });
   }
 
@@ -50,19 +52,27 @@ class _DataRSState extends State<DataRS> {
                 itemCount: rs.length,
                 itemBuilder: (context, index) {
                   return Card(
-                    child: ListTile(
-                      leading: CachedNetworkImage(
-                        imageUrl: rs[index].gambar,
-                        width: 50,
-                        height: 50,
-                        fit: BoxFit.cover,
-                      ),
-                      title: Text(rs[index].namaRS),
-                      trailing: ElevatedButton(
-                        onPressed: () {
-                          _showDetailsBottomSheet(context, rs[index]);
-                        },
-                        child: const Text('Details'),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        leading: CachedNetworkImage(
+                          imageUrl: rs[index].gambar,
+                          width: 70,
+                          height: 60,
+                        ),
+                        title: Text(
+                          rs[index].namaRS,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        trailing: ElevatedButton(
+                          onPressed: () {
+                            _showDetailsBottomSheet(context, rs[index]);
+                          },
+                          child: const Text('Details'),
+                        ),
                       ),
                     ),
                   );

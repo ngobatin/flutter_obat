@@ -224,12 +224,13 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               onPressed: () {
                 Navigator.of(dialogContext).pop();
               },
-              icon: Icon(Icons.cancel, color: Colors.red),
+              icon: const Icon(Icons.cancel, color: Colors.red),
               label: const Text('Tidak', style: TextStyle(color: Colors.red)),
             ),
             TextButton.icon(
               onPressed: () async {
                 await AuthManager.logout();
+                // ignore: use_build_context_synchronously
                 Navigator.pushAndRemoveUntil(
                   dialogContext,
                   MaterialPageRoute(
@@ -238,7 +239,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   (Route<dynamic> route) => false,
                 );
               },
-              icon: Icon(Icons.check, color: Colors.green),
+              icon: const Icon(Icons.check, color: Colors.green),
               label: const Text('Ya', style: TextStyle(color: Colors.green)),
             ),
           ],

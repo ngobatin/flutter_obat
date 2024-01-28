@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_obat/view/screen/admin/profile_screen.dart';
-import 'package:flutter_obat/view/screen/user/profile_user.dart';
+import 'package:flutter_obat/view/screen/profile_screen.dart';
 import 'package:flutter_obat/view/screen/about_screen.dart';
 import 'package:flutter_obat/view/screen/user/dashboard_screen.dart';
 

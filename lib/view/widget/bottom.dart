@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_obat/view/screen/admin/category_screen.dart';
-import 'package:flutter_obat/view/screen/admin/profile_screen.dart';
+import 'package:flutter_obat/view/screen/profile_screen.dart';
 
 class DynamicBottomNavBar extends StatefulWidget {
   const DynamicBottomNavBar({super.key});

@@ -15,7 +15,6 @@ class _ListObatState extends State<ListObat> {
   List<ObatModel> obat = [];
 
   @override
-  @override
   void initState() {
     super.initState();
     _dataService.getAllObat().then((value) {

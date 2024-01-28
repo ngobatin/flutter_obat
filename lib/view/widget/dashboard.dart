@@ -19,12 +19,12 @@ class _DashboardCardState extends State<DashboardCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(12),
       child: GestureDetector(
         onTap: widget.press,
         child: SizedBox(
-          width: 155,
-          height: 145,
+          width: 350,
+          height: 100,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Stack(
@@ -47,23 +47,26 @@ class _DashboardCardState extends State<DashboardCard> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 10,
-                  ),
-                  child: Text.rich(
-                    TextSpan(
-                      style: const TextStyle(color: Colors.white),
-                      children: [
-                        TextSpan(
-                          text: widget.text,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
+                    child: Text.rich(
+                      TextSpan(
+                        style: const TextStyle(color: Colors.white),
+                        children: [
+                          TextSpan(
+                            text: widget.text,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

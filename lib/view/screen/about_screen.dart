@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_obat/view/screen/admin/profile_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyShared extends StatefulWidget {
