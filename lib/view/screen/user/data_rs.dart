@@ -80,172 +80,174 @@ class _DataRSState extends State<DataRS> {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Center(
-                child: Text(
-                  "Details RS",
+        return SingleChildScrollView(
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Center(
+                  child: Text(
+                    "Details RS",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 15),
+                const Text(
+                  "Nama RS: ",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 20,
                   ),
                 ),
-              ),
-              const SizedBox(height: 15),
-              const Text(
-                "Nama RS: ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(7),
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade200,
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 2,
-                      blurRadius: 5,
-                      offset: const Offset(0, 3),
+                Container(
+                  padding: const EdgeInsets.all(7),
+                  decoration: BoxDecoration(
+                    color: Colors.blue.shade200,
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Text(
+                    rsModel.namaRS,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.normal,
                     ),
-                  ],
-                ),
-                child: Text(
-                  rsModel.namaRS,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.normal,
                   ),
                 ),
-              ),
-              const SizedBox(height: 15),
-              const Text(
-                "Contact: ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+                const SizedBox(height: 15),
+                const Text(
+                  "Contact: ",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(7),
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade200,
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 2,
-                      blurRadius: 5,
-                      offset: const Offset(0, 3),
+                Container(
+                  padding: const EdgeInsets.all(7),
+                  decoration: BoxDecoration(
+                    color: Colors.blue.shade200,
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Text(
+                    rsModel.noTelp,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.normal,
                     ),
-                  ],
-                ),
-                child: Text(
-                  rsModel.noTelp,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.normal,
                   ),
                 ),
-              ),
-              const SizedBox(height: 15),
-              const Text(
-                "Alamat: ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+                const SizedBox(height: 15),
+                const Text(
+                  "Alamat: ",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(7),
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade200,
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 2,
-                      blurRadius: 5,
-                      offset: const Offset(0, 3),
+                Container(
+                  padding: const EdgeInsets.all(7),
+                  decoration: BoxDecoration(
+                    color: Colors.blue.shade200,
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Text(
+                    rsModel.alamat,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.normal,
                     ),
-                  ],
-                ),
-                child: Text(
-                  rsModel.alamat,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.normal,
+                    textAlign: TextAlign.justify,
                   ),
-                  textAlign: TextAlign.justify,
                 ),
-              ),
-              const SizedBox(height: 15),
-              const Text(
-                "Latitude: ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+                const SizedBox(height: 15),
+                const Text(
+                  "Latitude: ",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(7),
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade200,
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 2,
-                      blurRadius: 5,
-                      offset: const Offset(0, 3),
+                Container(
+                  padding: const EdgeInsets.all(7),
+                  decoration: BoxDecoration(
+                    color: Colors.blue.shade200,
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Text(
+                    rsModel.latitude.toString(),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.normal,
                     ),
-                  ],
-                ),
-                child: Text(
-                  rsModel.latitude.toString(),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.normal,
+                    textAlign: TextAlign.justify,
                   ),
-                  textAlign: TextAlign.justify,
                 ),
-              ),
-              const SizedBox(height: 15),
-              const Text(
-                "Longitude: ",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+                const SizedBox(height: 15),
+                const Text(
+                  "Longitude: ",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(7),
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade200,
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 2,
-                      blurRadius: 5,
-                      offset: const Offset(0, 3),
+                Container(
+                  padding: const EdgeInsets.all(7),
+                  decoration: BoxDecoration(
+                    color: Colors.blue.shade200,
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Text(
+                    rsModel.longitude.toString(),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.normal,
                     ),
-                  ],
-                ),
-                child: Text(
-                  rsModel.longitude.toString(),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.normal,
+                    textAlign: TextAlign.justify,
                   ),
-                  textAlign: TextAlign.justify,
                 ),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context); // Close the BottomSheet
-                },
-                child: const Text('Close'),
-              ),
-            ],
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context); // Close the BottomSheet
+                  },
+                  child: const Text('Close'),
+                ),
+              ],
+            ),
           ),
         );
       },

@@ -174,6 +174,34 @@ class _DataPenyakitState extends State<DataPenyakit> {
                   textAlign: TextAlign.justify,
                 ),
               ),
+              const SizedBox(height: 15),
+              const Text(
+                "Nama Obat: ",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(7),
+                decoration: BoxDecoration(
+                  color: Colors.blue.shade200,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.3),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Text(
+                  penyakitModel.namaObat,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
