@@ -45,6 +45,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
   late SharedPreferences loginData;
   String username = '';
+  String loginTime = '';
 
   @override
   void initState() {
@@ -56,6 +57,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     loginData = await SharedPreferences.getInstance();
     setState(() {
       username = loginData.getString('username').toString();
+      loginTime = loginData.getString('loginTimeKey').toString();
     });
   }
 
@@ -129,6 +131,14 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                         const SizedBox(height: 4),
                         Text(
                           username,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          loginTime,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,

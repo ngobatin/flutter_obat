@@ -5,8 +5,7 @@ import 'dart:convert';
 
 class ApiUser {
   final Dio dio = Dio();
-  final String _baseUrl =
-      'https://asia-southeast2-obat-409909.cloudfunctions.net';
+  final String _baseUrl = 'https://vercel-obat.vercel.app';
 
   Future<Iterable<UserModel>?> getAllUser() async {
     try {

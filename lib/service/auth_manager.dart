@@ -42,11 +42,11 @@ class AuthManager {
     prefs.setString('username', username);
   }
 
-  static Future<void> getUser() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.getString('username');
-    prefs.getString('phone_number');
-  }
+  // static Future<void> getUser() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.getString('username');
+  //   prefs.getString('phone_number');
+  // }
 
   static Future<void> logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

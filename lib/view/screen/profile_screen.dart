@@ -44,6 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 "1214039",
                 "@febriand_1",
                 "Live life to the fullest",
+                "BukitTinggi",
                 "assets/images/dirga.png"),
             const SizedBox(height: 20),
             _buildCreatorProfile(
@@ -52,6 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 "1214026",
                 "@wops1e_",
                 "Be yourself; everyone else is already taken",
+                "Medan",
                 "assets/images/juwitas.png"),
           ],
         ),
@@ -60,7 +62,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildCreatorProfile(String title, String fullName, String npm,
-      String socialMedia, String motto, String imagePath) {
+      String socialMedia, String motto, String tempatlahir, String imagePath) {
     return Card(
       elevation: 10,
       child: ListTile(
@@ -79,6 +81,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Text("NPM: $npm"),
             Text("Instagram: $socialMedia"),
             Text("Motto: $motto"),
+            Text("Tempat Lahir: $tempatlahir"),
           ],
         ),
       ),
